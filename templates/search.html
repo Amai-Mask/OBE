@@ -1,0 +1,320 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      * {
+        font-family: "Courier New", Courier, monospace;
+      }
+      .selector {
+        margin-top: 40px;
+        position: relative;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: auto;
+      }
+      .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+      .top img {
+        width: 60px;
+      }
+      .left {
+        margin-left: 30px;
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .left h2 {
+        letter-spacing: 2px;
+        font-weight: 400;
+        text-transform: uppercase;
+      }
+      .left > * {
+        margin-right: 20px;
+        font-weight: 600;
+        font-family: "Courier New", Courier, monospace;
+      }
+      body {
+        background: #f9eee8;
+      }
+      .selecotr-item {
+        box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+        background-color: #333745;
+        font-family: "Source Sans Pro";
+        color: khaki;
+        font-weight: 150;
+        font-size: 20px;
+        letter-spacing: 3px;
+        text-align: center;
+        line-height: 1.2;
+        z-index: 2;
+        margin: 15px;
+        border-radius: 10px;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .selector-item_radio {
+        appearance: none;
+        display: none;
+        padding: 10px;
+      }
+      .selector-item_label {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-weight: 500;
+        transition-duration: 0.5s;
+        transition-property: transform, color, box-shadow;
+        transform: none;
+      }
+      .search {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .selector-item_radio:checked + .selector-item_label {
+        background-color: khaki;
+        color: black;
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.5);
+        transform: translateY(-2px);
+        font-weight: 700;
+      }
+      .jj {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: 50px;
+        display: none;
+      }
+      .jj input {
+        padding: 20px;
+        width: 60vw;
+        border: 50%;
+        padding-left: 50px;
+        font-size: 18px;
+        font-family: "Courier New", Courier, monospace;
+        background: none;
+        box-shadow: 5px 5px 0 black;
+        border-bottom-left-radius: 50px;
+        border-top-left-radius: 50px;
+      }
+      .jj button {
+        padding: 20px;
+        background: palegreen;
+        width: 200px;
+        font-family: "Courier New", Courier, monospace;
+        border: none;
+        font-size: 18px;
+        margin-left: 20px;
+        cursor: pointer;
+        border: 3px solid black;
+      }
+      .ll {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-top: 50px;
+      }
+      .ll input {
+        font-size: 18px;
+        font-family: "Courier New", Courier, monospace;
+        padding: 20px;
+        padding-left: 50px;
+        width: 60vw;
+        border: 50%;
+        background: none;
+        box-shadow: 5px 5px 0 black;
+        border-bottom-left-radius: 50px;
+        border-top-left-radius: 50px;
+      }
+      .ll button {
+        padding: 20px;
+        background: palegreen;
+        width: 200px;
+        font-family: "Courier New", Courier, monospace;
+        border: none;
+        font-size: 18px;
+        margin-left: 20px;
+        cursor: pointer;
+        border: 3px solid black;
+      }
+      .close {
+        padding: 20px;
+        width: 200px;
+        background: rgb(252, 121, 121);
+        border: 2px solid black;
+        font-size: 20px;
+        font-weight: 700;
+      }
+      .close:hover {
+        cursor: pointer;
+        background: whitesmoke;
+      }
+      .cc {
+        width: auto;
+        display: flex;
+        max-width: 668.5px;
+        flex-wrap: wrap;
+        background: black;
+      }
+      .cc > * {
+        cursor: pointer;
+        width: 290px;
+        margin: 0;
+        color: white;
+        height: 100px;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        border: 2px solid khaki;
+      }
+      .cc > *:hover {
+        background: khaki;
+        color: black;
+      }
+      h3 {
+        margin-top: 40px;
+        box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+        background-color: #333745;
+        font-family: "Source Sans Pro";
+        color: whitesmoke;
+        font-weight: 150;
+        font-size: 20px;
+        width: 300px;
+        letter-spacing: 3px;
+        text-align: center;
+        line-height: 1.2;
+        z-index: 2;
+        border-radius: 10px;
+        padding: 10px;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://code.jquery.com/jquery-3.6.4.min.js"
+      integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="search">
+      <div class="top">
+        <div class="left">
+          <img src="{%static '../static/ok.png'%}" alt="" />
+          <h2>Jahangirnagar University</h2>
+        </div>
+        <div class="right">
+          <button class="close" onclick="window.location.href='/'">
+            Close
+          </button>
+        </div>
+      </div>
+      <form method="POST">
+        {%csrf_token%}
+        <div class="selector">
+          <div class="selecotr-item">
+            <input
+              type="radio"
+              name="std"
+              class="selector-item_radio"
+              id="radio1"
+              value="1"
+              checked
+              onchange="show2()"
+            />
+            <label class="selector-item_label" for="radio1"
+              >Search By Student ID</label
+            >
+          </div>
+          <div class="selecotr-item">
+            <input
+              type="radio"
+              name="std"
+              id="radio2"
+              class="selector-item_radio"
+              value="2"
+              onchange="show1()"
+            />
+            <label class="selector-item_label" for="radio2"
+              >Search By Student Name</label
+            >
+          </div>
+          <div class="selecotr-item">
+            <input
+              type="radio"
+              name="std"
+              id="radio3"
+              class="selector-item_radio"
+              value="3"
+              class="selector-item_label"
+              onchange="show1()"
+            />
+            <label class="selector-item_label" for="radio3"
+              >Search by Teacher Name</label
+            >
+          </div>
+        </div>
+        <div class="ba">
+          <div class="jj">
+            <input type="text" name="text" placeholder="Enter Name ...." />
+            <button type="submit" name="search">Search</button>
+          </div>
+          <div class="ll">
+            <input
+              type="number"
+              name="number"
+              placeholder="Enter Identification Number..."
+            />
+            <button type="submit" name="search">Search</button>
+          </div>
+        </div>
+      </form>
+      <h3>Search Result</h3>
+      <div class="cc">
+        {%for o in cc%}
+        <h2
+          onclick="window.location.href='/student/{{o.studentId}}/{{o.session.session}}/{{o.dept.deptId}}'"
+        >
+          {{o.name}}
+        </h2>
+        {%endfor%} {%for o in ss%}
+        <h2
+          onclick="window.location.href='/performance/{{o.teacherId}}/{{o.dept.deptId}}'"
+        >
+          {{o.name}}
+        </h2>
+        {%endfor%}
+      </div>
+    </div>
+    <script type="text/javascript">
+      function show1() {
+        document.getElementsByClassName("ll")[0].style.display = "none";
+        document.getElementsByClassName("jj")[0].style.display = "flex";
+      }
+      function show2() {
+        document.getElementsByClassName("jj")[0].style.display = "none";
+        document.getElementsByClassName("ll")[0].style.display = "flex";
+      }
+    </script>
+  </body>
+</html>

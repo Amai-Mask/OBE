@@ -1,0 +1,102 @@
+{%extends 'navigation.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        background: khaki;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .con h2 {
+        margin-top: 0;
+        margin-bottom: 0;
+        background: plum;
+        padding: 10px;
+
+        border-bottom: 1px solid black;
+      }
+      .con {
+        border: 3px solid black;
+        margin-top: 100px;
+        width: 600px;
+        text-align: center;
+        margin-bottom: 50px;
+        background: lightgoldenrodyellow;
+      }
+      .oki {
+        padding: 20px;
+      }
+      .for {
+        background: mintcream;
+        box-shadow: 5px 5px 0px #25282a;
+        padding: 10px;
+        border: 2px solid black;
+        border-top: 20px solid black;
+      }
+      .mark {
+        background: rgb(237, 66, 66);
+        padding: 10px;
+        margin-bottom: 30px;
+        color: white;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        margin-left: 50%;
+        margin-top: 10px;
+        width: 250px;
+        font-size: 18px;
+        font-weight: 900;
+        border-radius: 10px;
+        box-shadow: 5px 5px 0px #25282a;
+      }
+      .len {
+        top: 0;
+        left: 59%;
+        position: fixed;
+        background: red;
+        padding: 10px;
+        padding-top: 5px;
+        width: 30px;
+        height: 30px;
+        font-weight: 900;
+        border-radius: 50%;
+        color: white;
+      }
+      @media only screen and (max-width: 900px) {
+        .len {
+          left: 67%;
+        }
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <span class="len">{{len}}</span>
+    <div class="con">
+      <h2>Notifications</h2>
+      <div class="oki">
+        {%for o in oo%}
+        <div class="for">
+          <p>{{o.text}}</p>
+          <small>Date :{{o.date}}</small>
+        </div>
+        {%if o.read is 0%}
+        <form method="POST">
+          {%csrf_token%}
+          <button class="mark" name="mark" value="{{o.msgId}}">
+            Mark As Read
+          </button>
+        </form>
+        {%else%}
+        <button class="mark" name="mark">Read</button>
+        {%endif%} {%endfor%}
+      </div>
+    </div>
+  </body>
+</html>
+{%endblock body%}

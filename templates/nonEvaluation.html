@@ -1,0 +1,156 @@
+{%extends 'navigation.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        background: khaki;
+      }
+      .con {
+        margin-top: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .con h2 {
+        background: lightcoral;
+        width: 70vw;
+        text-align: center;
+        border: 3px solid black;
+        border-bottom: 1px solid black;
+        margin-bottom: 0;
+        padding: 10px;
+      }
+      .con .ll {
+        background: lightgoldenrodyellow;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 70vw;
+        flex-direction: column;
+        border: 3px solid black;
+        border-top: none;
+        padding: 20px;
+      }
+      .button {
+        margin-top: 50px;
+      }
+      .button button {
+        background: black;
+        padding: 10px;
+        width: 200px;
+        color: white;
+        font-weight: 600;
+        font-size: 18px;
+        margin-bottom: 30px;
+      }
+      table {
+        margin-top: 20px;
+        margin: auto;
+        width: 60vw;
+      }
+
+      table,
+      th,
+      td {
+        margin-top: 10px;
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      tr {
+        background: peachpuff;
+      }
+      th,
+      td {
+        padding: 15px;
+      }
+      thead tr {
+        background: plum;
+      }
+      .notun {
+        background: rgba(174, 174, 174, 0.768);
+        position: fixed;
+        min-height: 101.5vh;
+        min-width: 99vw;
+        z-index: 5;
+        top: 6%;
+        width: 100vw;
+      }
+      .msg {
+        position: absolute;
+        top: 30%;
+        z-index: 100;
+        background: lightcoral;
+        left: 40%;
+        width: 400px;
+        border-radius: 20px;
+        padding: 30px;
+        text-align: center;
+      }
+      .msg button {
+        background: black;
+        color: white;
+        font-size: 18px;
+        font-family: "Courier New", Courier, monospace;
+        font-weight: 600;
+        padding: 10px;
+        width: 140px;
+        border: none;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    {%for msg in messages%} {%if 'ready' in msg.tags%}
+    <div class="notun"></div>
+    <div class="msg">
+      <h3>{{msg}}</h3>
+      <button onclick="history.back()">Return</button>
+    </div>
+    {%endif%} {%endfor%}
+    <div class="con">
+      <h2>Course Result from First and Second Examiner</h2>
+      <div class="ll">
+        <table>
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Difference</th>
+              <th>CGPA</th>
+            </tr>
+          </thead>
+          {%for o in marks%}
+          <tr>
+            <th>{{o.student.studentId}}</th>
+            <th>{{o.diff}}</th>
+            <th>{{o.grade}}</th>
+          </tr>
+          {%endfor%}
+        </table>
+        <h2>Course Result from Third Examiner</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Total</th>
+              <th>CGPA</th>
+            </tr>
+          </thead>
+          {%for o in marks%}
+          <tr>
+            <th>{{o.student.studentId}}</th>
+            <th>{{o.third}}</th>
+            <th>{{o.grade}}</th>
+          </tr>
+          {%endfor%}
+        </table>
+      </div>
+    </div>
+    <button class="back" onclick="history.back()">Back</button>
+  </body>
+</html>
+{%endblock body%}

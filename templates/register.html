@@ -1,0 +1,196 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        font-family: "Courier New", Courier, monospace;
+        margin: 0;
+        background: url("{%static '../static/image-from-rawpixel-id-2210775-jpeg.jpg'%}");
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      .con {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+      .con form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: #f8f4e5;
+        padding: 50px;
+        box-shadow: 15px 15px 1px #ffa580, 15px 15px 1px 2px rgba(0, 0, 0, 1);
+        color: black;
+        border: 3px solid black;
+      }
+      .con form > * {
+        margin-bottom: 30px;
+        width: 100%;
+        border: none;
+        outline: none;
+        padding: 10px;
+      }
+      .con button {
+        background: #ffa580;
+        color: black;
+        font-size: 19px;
+        font-family: "Courier New", Courier, monospace;
+        font-weight: 600;
+        width: 200px;
+      }
+      a {
+        color: black;
+      }
+
+      input {
+        font-family: "Courier New", Courier, monospace;
+        padding: 20px;
+      }
+
+      h2 {
+        border-bottom: 1px solid black;
+      }
+      .notun {
+        background: rgba(92, 84, 84, 0.757);
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 5;
+      }
+
+      #alert1 {
+        background: salmon;
+        position: absolute;
+        left: 40%;
+        z-index: 400;
+        width: 300px;
+        padding: 40px;
+        top: 30%;
+        border-radius: 10px;
+        text-align: center;
+        color: white;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      #alert2 {
+        background: rgb(101, 206, 108);
+        position: absolute;
+        z-index: 400;
+        width: 300px;
+        padding: 40px;
+        top: 30%;
+        left: 40%;
+        border-radius: 10px;
+        text-align: center;
+        color: white;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      #alert1 button {
+        background: black;
+        color: white;
+        font-size: 19px;
+        font-weight: 600;
+        padding: 10px;
+        border: 2px solid black;
+        width: 150px;
+        border-radius: 5px;
+      }
+      #alert2 button {
+        background: black;
+        color: white;
+        font-size: 19px;
+        font-weight: 600;
+        padding: 10px;
+        border-radius: 5px;
+        border: 2px solid black;
+        width: 150px;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    {% for msg in messages%} {% if 'error' in msg.tags%}
+    <div class="notun"></div>
+    <div
+      id="alert1"
+      class="alert alert-danger alert-dismissible fade show"
+      role="alert"
+    >
+      <div class="sub">
+        <h3>Error Occurred !</h3>
+        <p>{{msg}}</p>
+      </div>
+      <button class="button" onclick="history.back()">Close</button>
+    </div>
+    {%elif 'success' in msg.tags%}
+    <div class="notun"></div>
+    <div
+      id="alert2"
+      class="alert alert-danger alert-dismissible fade show"
+      role="alert"
+    >
+      <i id="ok" class="fa fa-check"></i>
+      <div class="sub">
+        <h3>Success</h3>
+        <p>{{msg}}</p>
+      </div>
+      <button class="button" onclick="window.location.href='/'">Close</button>
+    </div>
+    {%endif%} {%endfor%}
+    <div class="con">
+      <form method="POST">
+        {%csrf_token%}
+        <div class="oki">
+          <h2>Register As:</h2>
+          <input type="radio" value="1" name="type" />
+          <span>Teacher</span>
+          <input type="radio" value="2" name="type" />
+          <span>Student</span>
+          <input type="radio" value="3" name="type" />
+          <span>Staff</span>
+        </div>
+        <input type="text" name="name" placeholder="Enter Username" />
+        <input type="email" name="email" placeholder="Enter Email" />
+        <input
+          type="password"
+          name="pass"
+          onchange="checkPass()"
+          placeholder="Enter password"
+          id="pass1"
+        />
+        <div id="error-nwl"></div>
+        <button type="submit" name="register" id="btn" disabled>
+          Register
+        </button>
+        <a href="/login">Already have an account? Login.</a>
+      </form>
+    </div>
+    <script type="text/javascript">
+      function checkPass() {
+        var pass1 = document.getElementById("pass1");
+        var message = document.getElementById("error-nwl");
+        var goodColor = "#66cc66";
+        var badColor = "#ff6666";
+
+        if (pass1.value.length > 5) {
+          pass1.style.backgroundColor = goodColor;
+          message.style.color = goodColor;
+          message.innerHTML = "ok!";
+          document.getElementById("btn").disabled = false;
+        } else {
+          pass1.style.backgroundColor = badColor;
+          message.style.color = badColor;
+          message.innerHTML = " you have to enter at least 6 digit!";
+          return;
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,73 @@
+{%extends 'navigation.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        background: khaki;
+      }
+      .con {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 100px;
+        flex-direction: column;
+      }
+      .ok {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        background: lightgoldenrodyellow;
+        border: 3px solid black;
+        border-top: none;
+        width: 60vw;
+        padding: 20px;
+      }
+      h2 {
+        background: cornflowerblue;
+        width: 60vw;
+        padding: 10px;
+        border: 3px solid black;
+        margin-bottom: 0;
+        text-align: center;
+        border-bottom: 1px solid black;
+      }
+      .ok > * {
+        cursor: pointer;
+        background: lightcoral;
+        width: 340px;
+        margin-right: 40px;
+        margin-bottom: 30px;
+        text-align: center;
+        padding: 10px;
+        border: 1px solid black;
+        box-shadow: 5px 5px 0px #25282a;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="con">
+      <h2>Courses</h2>
+      <div class="ok">
+        {%for o in course%}
+        <div
+          class="kk"
+          onclick="
+          window.location.href='/indCourse/{{o.session.session}}/{{o.semester.semester}}/{{o.courseCode}}'
+          "
+        >
+          <h3>{{o.name}}</h3>
+          <h4>{{o.semester}}</h4>
+          <small>Course Code: {{o.courseCode}}</small>
+        </div>
+        {%endfor%}
+      </div>
+    </div>
+  </body>
+</html>
+{%endblock body%}

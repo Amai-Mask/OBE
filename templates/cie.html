@@ -1,0 +1,482 @@
+{%extends 'navigation.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+    body {
+      background: khaki;
+    }
+    .con {
+      margin-top: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .con h2 {
+      background: lightcoral;
+      width: 70vw;
+      text-align: center;
+      border: 3px solid black;
+      border-bottom: 1px solid black;
+      margin-bottom: 0;
+      padding: 10px;
+    }
+    .con .ami {
+      background: lightgoldenrodyellow;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 70vw;
+      flex-direction: column;
+      border: 3px solid black;
+      border-top: none;
+      padding: 20px;
+    }
+    .button {
+      margin-top: 50px;
+    }
+    .button button {
+      background: black;
+      padding: 10px;
+      width: 200px;
+      color: white;
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+    table {
+      width: 60vw;
+      margin: auto;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    .prev {
+      padding: 30px;
+      width: 70vw;
+      background: linen;
+      border: 3px solid black;
+      border-top: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-bottom: 50px;
+    }
+
+    .prev table {
+      margin-bottom: 30px;
+      background: lightgoldenrodyellow;
+    }
+    .ff {
+      background: plum;
+    }
+    .prev h3 {
+      padding: 10px;
+      border: 1px solid black;
+      border-bottom: none;
+      width: 60vw;
+      margin-bottom: -2px;
+      background: lightsteelblue;
+      text-align: center;
+    }
+    .again {
+      background: rgb(3, 199, 3);
+      font-family: "Courier New", Courier, monospace;
+      font-size: 18px;
+      font-weight: 800;
+      color: white;
+      padding: 10px;
+      width: 150px;
+      border: none;
+    }
+    th,
+    td {
+      padding: 15px;
+    }
+    thead {
+      background: peachpuff;
+    }
+    .ami input {
+      background: none;
+      outline: none;
+      width: 150px;
+      border: 1px solid salmon;
+      text-align: center;
+    }
+    #ami1 input {
+      background: none;
+      outline: none;
+      text-align: center;
+      width: 100px;
+    }
+    .kk {
+      background: salmon;
+      color: white;
+      font-weight: 700;
+      border: none;
+      width: 150px;
+    }
+  </style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="con">
+      {%if course.tutDone is 0%}
+      <h2>Continuous Internal Evaluation Marks - {{cn}}</h2>
+      <form method="POST" class="ami">
+        {%csrf_token%}
+        <table>
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Remember</th>
+              <th>Understand</th>
+              <th>Apply</th>
+              <th>Analyze</th>
+              <th>Evlauate</th>
+              <th>Create</th>
+            </tr>
+          </thead>
+          {%for o,i in marks%}
+          <tr>
+            <th>{{o.studentId}}</th>
+            <th>
+              <input
+                type="number"
+                max="5"
+                min="0"
+                step=".01"
+                value="0"
+                name="clo1"
+              />
+              {%if i.clo1 %}
+              <form method="POST" id="aForm">
+                {%csrf_token%}
+                <button
+                  type="submit"
+                  name="ans1"
+                  value="{{o.studentId}}"
+                  id="no1"
+                  class="kk"
+                >
+                  View Answer
+                </button>
+              </form>
+              {%endif%}
+            </th>
+            <th>
+              <input
+                type="number"
+                max="5"
+                min="0"
+                step=".01"
+                value="0"
+                name="clo2"
+              />
+              {%if i.clo2%}
+              <form method="POST" id="aForm">
+                {%csrf_token%}
+                <button
+                  type="submit"
+                  class="kk"
+                  name="ans2"
+                  value="{{o.studentId}}"
+                  id="no2"
+                >
+                  View Answer
+                </button>
+              </form>
+              {%endif%}
+            </th>
+            <th>
+              <input
+                type="number"
+                max="5"
+                min="0"
+                step=".01"
+                value="0"
+                name="clo3"
+              />{%if i.clo3%}
+              <form method="POST" id="aForm">
+                {%csrf_token%}
+                <button
+                  type="submit"
+                  class="kk"
+                  name="ans3"
+                  value="{{o.studentId}}"
+                  id="no3"
+                >
+                  View Answer
+                </button>
+              </form>
+              {%endif%}
+            </th>
+            <th>
+              <input
+                type="number"
+                max="5"
+                min="0"
+                step=".01"
+                value="0"
+                name="clo4"
+              />{%if i.clo4%}
+              <form method="POST" id="aForm">
+                {%csrf_token%}
+                <button
+                  type="submit"
+                  class="kk"
+                  name="ans4"
+                  value="{{o.studentId}}"
+                  id="no4"
+                >
+                  View Answer
+                </button>
+              </form>
+              {%endif%}
+            </th>
+            <th>
+              <input
+                type="number"
+                max="5"
+                min="0"
+                step=".01"
+                value="0"
+                name="clo5"
+              />{%if i.clo5%}
+              <form method="POST" id="aForm">
+                {%csrf_token%}
+                <button
+                  type="submit"
+                  class="kk"
+                  name="ans5"
+                  value="{{o.studentId}}"
+                  id="no5"
+                >
+                  View Answer
+                </button>
+              </form>
+              {%endif%}
+            </th>
+            <th>
+              <input
+                type="number"
+                max="5"
+                min="0"
+                step=".01"
+                value="0"
+                name="clo6"
+              />{%if i.clo6%}
+              <form method="POST" id="aForm">
+                {%csrf_token%}
+                <button
+                  type="submit"
+                  class="kk"
+                  name="ans6"
+                  value="{{o.studentId}}"
+                  id="no6"
+                >
+                  View Answer
+                </button>
+              </form>
+              {%endif%}
+            </th>
+          </tr>
+          {%endfor%}
+        </table>
+        <div class="button">
+          <button type="submit" name="cancel">Cancel</button>
+          <button type="submit" name="save">Save</button>
+        </div>
+      </form>
+      {%endif%}
+      <h2 class="ff">Tutorials</h2>
+      <div class="prev">
+        {%for o,i in zz.items%}
+        <form method="POST" class="ami" id="ami1">
+          {%csrf_token%}
+          <h3>Continuous Internal Evaluation Marks - {{o}}</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Student ID</th>
+                <th>Student Name</th>
+                <th>Remember</th>
+                <th>Understand</th>
+                <th>Apply</th>
+                <th>Analyze</th>
+                <th>Evlauate</th>
+                <th>Create</th>
+              </tr>
+            </thead>
+            {%for c in i%}
+            <tr>
+              <th>{{c.student.studentId}}</th>
+              <th>{{c.student.name}}</th>
+              <th>
+                <input
+                  type="number"
+                  name="clo1"
+                  value="{{c.CLO1}}"
+                  max="5"
+                  min="0"
+                />
+              </th>
+              <th>
+                <input
+                  type="number"
+                  name="clo2"
+                  value="{{c.CLO2}}"
+                  max="5"
+                  min="0"
+                />
+              </th>
+              <th>
+                <input
+                  type="number"
+                  name="clo3"
+                  value="{{c.CLO3}}"
+                  max="5"
+                  min="0"
+                />
+              </th>
+              <th>
+                <input
+                  type="number"
+                  name="clo4"
+                  value="{{c.CLO4}}"
+                  max="5"
+                  min="0"
+                />
+              </th>
+              <th>
+                <input
+                  type="number"
+                  name="clo5"
+                  value="{{c.CLO5}}"
+                  max="5"
+                  min="0"
+                />
+              </th>
+              <th>
+                <input
+                  type="number"
+                  name="clo6"
+                  value="{{c.CLO6}}"
+                  max="5"
+                  min="0"
+                />
+              </th>
+            </tr>
+            {%endfor%}
+          </table>
+          <button type="submit" name="again" value="{{o}}" class="again">
+            Save
+          </button>
+        </form>
+        {%endfor%}
+      </div>
+    </div>
+    {%if course.tutDone is 1%}
+    <button onclick="history.back()" class="back">Return</button>
+    {%endif%}
+  </body>
+  <script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"
+  ></script>
+
+  <script type="text/javascript">
+    $(document).on("submit", "#aForm", function (e) {
+      e.preventDefault();
+      $.ajax({
+        type: "POST",
+        url: {{uri|safe}},
+        data: {
+          task: $("#no1").val(),
+          csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+        },
+        success: function () {
+          alert("Saved");
+        },
+      });
+    });
+    $(document).on("submit", "#aForm", function (e) {
+      e.preventDefault();
+      $.ajax({
+        type: "POST",
+        url: {{uri|safe}},
+        data: {
+          task: $("#no2").val(),
+          csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+        },
+        success: function () {
+          alert("Saved");
+        },
+      });
+    }); $(document).on("submit", "#aForm", function (e) {
+      e.preventDefault();
+      $.ajax({
+        type: "POST",
+        url: {{uri|safe}},
+        data: {
+          task: $("#no3").val(),
+          csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+        },
+        success: function () {
+          alert("Saved");
+        },
+      });
+    }); $(document).on("submit", "#aForm", function (e) {
+      e.preventDefault();
+      $.ajax({
+        type: "POST",
+        url: {{uri|safe}},
+        data: {
+          task: $("#no4").val(),
+          csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+        },
+        success: function () {
+          alert("Saved");
+        },
+      });
+    }); $(document).on("submit", "#aForm", function (e) {
+      e.preventDefault();
+      $.ajax({
+        type: "POST",
+        url: {{uri|safe}},
+        data: {
+          task: $("#no5").val(),
+          csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+        },
+        success: function () {
+          alert("Saved");
+        },
+      });
+    });
+    $(document).on("submit", "#aForm", function (e) {
+      e.preventDefault();
+      $.ajax({
+        type: "POST",
+        url: {{uri|safe}},
+        data: {
+          task: $("#no6").val(),
+          csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+        },
+        success: function () {
+          alert("Saved");
+        },
+      });
+    });
+  </script>
+</html>
+{%endblock body%}

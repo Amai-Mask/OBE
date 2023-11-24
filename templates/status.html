@@ -1,0 +1,198 @@
+{%extends 'navigation.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        background: khaki;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      h2 {
+        margin-top: 100px;
+        margin-bottom: 0;
+        border: 3px solid black;
+        border-bottom: 1px solid black;
+        padding: 10px;
+        width: 80vw;
+        background: rgb(114, 159, 243);
+        text-align: center;
+        background: linear-gradient();
+      }
+      .con {
+        padding: 20px;
+        background: lemonchiffon;
+        border: 3px solid black;
+        border-top: none;
+        width: 80vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .con h3 {
+        width: 100%;
+        background: salmon;
+        border: 1px solid black;
+        margin-bottom: 0;
+        border-bottom: none;
+        padding: 10px;
+        text-align: center;
+      }
+      table {
+        width: 100%;
+        margin: auto;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      table thead {
+        background: lightsteelblue;
+      }
+      .con form button {
+        background: black;
+        color: white;
+        border: 3px solid limegreen;
+        padding: 20px;
+        width: 250px;
+        margin-top: 50px;
+        display: block;
+        font-size: 18px;
+        line-height: 2;
+        max-width: 450px;
+        background-size: 100% 200%;
+        background-image: linear-gradient(180deg, transparent 50%, limegreen 0);
+        transition: background-position 0.5s ease, color 0.5s ease;
+        padding: 0.75rem 0;
+      }
+      .con form button:hover {
+        color: white;
+        background-position: 0 100%;
+        font-weight: 600;
+        transition: background-position 0.5s ease, color 0.5s ease;
+      }
+      th,
+      td {
+        height: 70px;
+        padding: 15px;
+      }
+      .j {
+        width: 50px;
+      }
+      .back {
+        margin-left: 0;
+      }
+      .back a {
+        color: white;
+        text-decoration: none;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>{{ss}}</h2>
+    <div class="con">
+      <h3>Theory Courses</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Course Name</th>
+            <th>Course Code</th>
+            <th class="j">Tutorial Evaluation</th>
+            <th class="j">Attendance Evaluation</th>
+            <th class="j">First Examiner Evaluation</th>
+            <th class="j">Second Examiner Evaluation</th>
+            <th class="j">Third Examiner Evaluation</th>
+          </tr>
+        </thead>
+        {%for o in theory%}
+        <tr>
+          <th>{{o.name}}</th>
+          <th>{{o.courseCode}}</th>
+          {%if o.tutDone is 0%}
+          <th class="cross">&#10060;</th>
+          {%else%}
+          <th>&#10003;</th>
+          {%endif%} {%if o.tutDone is 0%}
+          <th>&#10060;</th>
+          {%else%}
+          <th>&check;</th>
+          {%endif%} {%if o.done is 0%}
+          <th>&#10060;</th>
+          {%else%}
+          <th>&check;</th>
+          {%endif%} {%if o.extDone is 0%}
+          <th>&#10060;</th>
+          {%else%}
+          <th>&check;</th>
+          {%endif%} {%if o.thirdDone is 0%}
+          <th>&#10060;</th>
+          {%else%}
+          <th>&check;</th>
+          {%endif%}
+        </tr>
+        {%endfor%}
+      </table>
+      <h3>Lab Courses</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Course Name</th>
+            <th>Course Code</th>
+            <th class="j">Tutorial Evaluation</th>
+            <th class="j">Assignment Evaluation</th>
+            <th class="j">First Examiner Evaluation</th>
+            <th class="j">Second Examiner Evaluation</th>
+            <th class="j">Third Examiner Evaluation</th>
+          </tr>
+        </thead>
+        {%for o in lab%}
+        <tr>
+          <th>{{o.name}}</th>
+          <th>{{o.courseCode}}</th>
+          {%if o.tutDone is 0%}
+          <th>&#10060;</th>
+          {%else%}
+          <th>&check;</th>
+          {%endif%} {%if o.tutDone is 0%}
+          <th>&#10060;</th>
+          {%else%}
+          <th>&check;</th>
+          {%endif%} {%if o.done is 0%}
+          <th>&#10060;</th>
+          {%else%}
+          <th>&check;</th>
+          {%endif%} {%if o.extDone is 0%}
+          <th>&#10060;</th>
+          {%else%}
+          <th>&check;</th>
+          {%endif%} {%if o.thirdDone is 0%}
+          <th>&#10060;</th>
+          {%else%}
+          <th>&check;</th>
+          {%endif%}
+        </tr>
+        {%endfor%}
+      </table>
+      {%if semester.done is 0%}
+      <form method="POST">
+        {%csrf_token%}
+        <button name="pub" type="submit">Publish Result</button>
+      </form>
+      {%endif%}
+    </div>
+    <button class="back">
+      <a href="/course/{{session}}/{{semester.semester}}/{{dept}}">Return</a>
+    </button>
+  </body>
+</html>
+{%endblock body%}

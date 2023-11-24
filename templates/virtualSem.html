@@ -1,0 +1,349 @@
+{%extends 'navigation.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+    <style>
+      * {
+        font-family: poppins;
+      }
+      body {
+        margin-top: 100px;
+        padding: 0;
+        box-sizing: border-box;
+        background-color: #ede6f6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .main {
+        height: 450;
+        width: 50vw;
+        box-sizing: border-box;
+        background-color: white;
+        border-top: 12px solid #663ab5;
+        border-radius: 10px;
+        margin: 13px;
+        margin-bottom: 0;
+        padding: 10px;
+        padding-left: 30px;
+        font-size: 13px;
+      }
+      .main h1 {
+        font-size: 25px;
+      }
+
+      .submit {
+        width: 50vw;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+      }
+
+      img {
+        margin-top: 13px;
+        height: 200px;
+        width: 50vw;
+        object-fit: fill;
+        object-position: center;
+        border-radius: 10px;
+      }
+
+      .Google {
+        text-align: center;
+      }
+      .dd {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .dd > * {
+        margin-top: 20px;
+        width: 500px;
+        padding: 10px;
+        border-radius: 10px;
+        background: whitesmoke;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      }
+      input[type="file"] {
+        width: 100%;
+        cursor: pointer;
+      }
+      label {
+        font-size: 18px;
+        font-weight: 700;
+        display: block;
+        border-bottom: 1px solid rgba(161, 161, 161, 0.165);
+        margin-bottom: 10px;
+      }
+      .dd button {
+        margin: 13px;
+        margin-left: 0;
+        margin-bottom: 20px;
+        padding: 10px 19px;
+        border-radius: 3px;
+        background-color: #663ab5;
+        border: none;
+        width: 200px;
+        color: white;
+      }
+
+      .dd button:hover {
+        background-color: #452286;
+        transition: ease-in 200ms;
+      }
+      .dd .cancel {
+        background: red;
+        font-weight: 800;
+      }
+      .aa {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: white;
+        border-top: 13px solid red;
+        padding: 20px;
+        margin-top: 30px;
+        width: 50vw;
+        border-radius: 10px;
+      }
+      .aa form {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        width: 500px;
+        background: whitesmoke;
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      }
+
+      .aa form button {
+        background: rgb(90, 213, 90);
+        border: none;
+        border-radius: 6px;
+        box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+        box-sizing: border-box;
+        color: white;
+        cursor: pointer;
+        display: inline-block;
+        font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 16px;
+        min-height: 40px;
+        outline: 0;
+        padding: 12px 14px;
+        text-align: center;
+        text-rendering: geometricprecision;
+        text-transform: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: middle;
+      }
+      .aa h1 {
+        border-bottom: 1px solid rgba(163, 156, 156, 0.314);
+      }
+      #timer {
+        display: flex;
+        width: 25em;
+        padding: 0.5em;
+        background-color: rgb(250, 40, 40);
+        justify-content: space-evenly;
+        border-radius: 8px;
+        color: white;
+        align-items: center;
+      }
+      ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      ul li {
+        font-size: 19px;
+        font-weight: 800;
+      }
+      .af button {
+        padding: 20px;
+        width: 200px;
+        background: #663ab5;
+        font-weight: 800;
+        color: white;
+
+        border: none;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <form method="POST" class="af">
+      {%csrf_token%}
+      <button type="submit" name="question">View Question</button>
+    </form>
+    <form method="POST" enctype="multipart/form-data">
+      {%csrf_token%}
+      <div class="main">
+        <h1>{{course}}</h1>
+        <hr />
+
+        <div class="dd">
+          <div id="timer">
+            <h3>Time Remaining</h3>
+            <ul type="none">
+              <li><span id="hours">{{hour}}</span>:</li>
+              <li><span id="minutes">{{minute}}</span>:</li>
+              <li><span id="seconds">{{second}}</span></li>
+            </ul>
+          </div>
+          <div class="ca">
+            <label for="">Quesiton 1</label>
+            <input type="file" name="clo1" />
+          </div>
+          <div class="ca">
+            <label for="">Quesiton 2</label>
+            <input type="file" name="clo2" />
+          </div>
+          <div class="ca">
+            <label for="">Quesiton 3</label>
+            <input type="file" name="clo3" />
+          </div>
+          <div class="ca">
+            <label for="">Quesiton 4</label>
+            <input type="file" name="clo4" />
+          </div>
+          <div class="ca">
+            <label for="">Quesiton 5</label>
+            <input type="file" name="clo5" />
+          </div>
+
+          <button type="submit" name="save">Submit</button>
+        </div>
+      </div>
+    </form>
+  </body>
+  <script>
+    window.onload = (event) => {
+      console.log("page is fully loaded");
+      TimerStart();
+    };
+    let startButtonWasClicked = false;
+    let timerReseted = false;
+    let timerEnded = false;
+    let stopButtonWasClicked = false;
+
+    //getting the dom references
+    const hoursSpan = document.querySelector("#hours");
+    const minutesSpan = document.querySelector("#minutes");
+    const secondsSpan = document.querySelector("#seconds");
+
+    //initial vallues
+    const initialHour = hoursSpan.textContent;
+    const initialMinute = minutesSpan.textContent;
+    const initialSecond = secondsSpan.textContent;
+
+    //adding eventListener
+    const resetBtn = document.querySelector("#timer-reset");
+    // resetBtn.addEventListener("click", (event) => {
+    //   event.preventDefault();
+    //   TimerReset();
+    // });
+
+    function TimerStart() {
+      startButtonWasClicked = true;
+
+      //getting the time
+      let hours = Number(hoursSpan.textContent);
+      let minutes = Number(minutesSpan.textContent);
+      let seconds = Number(secondsSpan.textContent);
+
+      let timeInSeconds = seconds + minutes * 60 + hours * 60 * 60;
+
+      let intervalId = setInterval(() => {
+        console.log(timeInSeconds);
+        //checking for reset
+        if (timerReseted) {
+          timerReseted = false;
+          clearInterval(intervalId);
+          return;
+        }
+
+        //checking if the timer was paused
+        if (stopButtonWasClicked) {
+          stopButtonWasClicked = false;
+          clearInterval(intervalId);
+          return;
+        }
+
+        //converting seconds to minutes and hours
+        SecondToHoursAndMinutes(timeInSeconds);
+
+        //checking if the timer ended
+        if (timeInSeconds === 0) {
+          TimerEnded();
+          clearInterval(intervalId);
+        }
+
+        timeInSeconds--;
+      }, 900);
+
+      function SecondToHoursAndMinutes(time) {
+        //checking if the seconds are 0 beforehand
+        //since 0 divided to everything is 0
+        if (time === 0) {
+          hoursSpan.textContent = "00";
+          minutesSpan.textContent = "00";
+          secondsSpan.textContent = "00";
+          return;
+        }
+
+        minutes = time / 60 - hours * 60;
+        seconds = (time % 60).toFixed(0);
+
+        //once an hour passes it is dividable to 3600 seconds
+        if (time % 3600 === 0) {
+          hours = (time / 60 / 60).toFixed(0) - 1;
+          minutes = 59;
+          seconds = 59;
+        }
+
+        //i am converting the minutes to string since i only need
+        //the first two numbers
+        let temp = minutes.toString();
+        minutes = Number(temp.slice(0, 2));
+
+        if (hours === 0 || hours < 10) {
+          hoursSpan.textContent = "0" + hours.toString();
+        } else {
+          hoursSpan.textContent = hours.toString();
+        }
+
+        if (minutes === 0 || minutes < 10) {
+          minutesSpan.textContent = "0" + minutes.toString();
+        } else {
+          minutesSpan.textContent = minutes.toString();
+        }
+        if (seconds === 0 || seconds < 10) {
+          secondsSpan.textContent = "0" + seconds.toString();
+        } else {
+          secondsSpan.textContent = seconds.toString();
+        }
+      }
+    }
+  </script>
+</html>
+
+{%endblock body%}

@@ -1,0 +1,178 @@
+{%extends 'navigation.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        background: khaki;
+      }
+      .con {
+        margin-top: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .con h2 {
+        background: lightcoral;
+        width: 70vw;
+        text-align: center;
+        border: 3px solid black;
+        border-bottom: 1px solid black;
+        margin-bottom: 0;
+        padding: 10px;
+      }
+      .con form {
+        background: lightgoldenrodyellow;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 70vw;
+        flex-direction: column;
+        border: 3px solid black;
+        border-top: none;
+        padding: 20px;
+      }
+      .button {
+        margin-top: 50px;
+      }
+      .button button {
+        background: black;
+        padding: 10px;
+        width: 200px;
+        color: white;
+        font-weight: 600;
+        font-size: 18px;
+        margin-bottom: 30px;
+      }
+      table {
+        width: 40vw;
+        margin: auto;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 15px;
+      }
+      input {
+        background: none;
+        border: none;
+        outline: none;
+      }
+      input[type="checkbox"] {
+        position: relative;
+        visibility: hidden;
+        cursor: pointer;
+      }
+
+      input[type="checkbox"]:after {
+        display: block;
+        content: "Absent";
+        position: absolute;
+        top: 0;
+        right: -30px;
+        visibility: visible;
+        height: 30px;
+        line-height: 30px;
+        width: 65px;
+        text-align: center;
+        border-radius: 4px;
+        background: #d00;
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      input[type="checkbox"]:checked:after {
+        content: "Present";
+        background: #0a0;
+      }
+      .notun {
+        background: rgba(92, 84, 84, 0.757);
+        position: fixed;
+        width: 100%;
+        top: 5.6%;
+        height: 95vh;
+        z-index: 5;
+      }
+      #alert1 {
+        background: salmon;
+        position: absolute;
+        left: 40%;
+        z-index: 400;
+        width: 500px;
+        padding: 40px;
+        top: 30%;
+        border-radius: 10px;
+        text-align: center;
+        color: white;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      #alert1 button {
+        background: black;
+        color: white;
+        font-size: 19px;
+        font-weight: 600;
+        padding: 10px;
+        border: 2px solid black;
+        width: 150px;
+        border-radius: 5px;
+      }
+      .ok {
+        display: none;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    {%for msg in messages%} {%if 'taken' in msg.tags%}
+    <div class="notun"></div>
+    <div id="alert1">
+      <h3>{{msg}}</h3>
+      <button onclick="history.back()">Close</button>
+    </div>
+    {%endif%} {%endfor%}
+    <div class="con">
+      <h2>Attendance of {{date}}</h2>
+      <form method="POST">
+        {%csrf_token%}
+        <table>
+          <tr>
+            <th>Student ID</th>
+            <th>Name</th>
+            <th class="ii">Absent / Present</th>
+          </tr>
+          {%for o in students%}
+          <tr>
+            <th>{{o.studentId}}</th>
+            <th>{{o.name}}</th>
+            <th>
+              <input
+                type="checkbox"
+                name="att"
+                id="c1"
+                value="{{o.studentId}}"
+              />
+            </th>
+          </tr>
+          {%endfor%}
+        </table>
+        <div class="button">
+          <button type="submit" name="cancel">Cancel</button>
+          <button type="submit" name="attendance">POST</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
+{%endblock body%}

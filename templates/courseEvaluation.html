@@ -1,0 +1,174 @@
+{%extends 'navigation.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        background: khaki;
+      }
+      .con {
+        margin-top: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 50px;
+      }
+      .con h2 {
+        background: lightcoral;
+        width: 70vw;
+        text-align: center;
+        border: 3px solid black;
+        border-bottom: 1px solid black;
+        margin-bottom: 0;
+        padding: 10px;
+      }
+      tr {
+        background: peachpuff;
+      }
+      .notun {
+        background: rgba(204, 204, 204, 0.528);
+        position: fixed;
+        min-height: 101.5vh;
+        min-width: 99vw;
+        z-index: 5;
+        top: 6%;
+        width: 100vw;
+      }
+      .msg {
+        position: fixed;
+        top: 30%;
+        color: black;
+        left: 35%;
+        z-index: 100;
+        background: salmon;
+        padding: 20px;
+        text-align: center;
+        border-radius: 10px;
+      }
+      .con .form {
+        background: lightgoldenrodyellow;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 70vw;
+        flex-direction: column;
+        border: 3px solid black;
+        border-top: none;
+      }
+      thead tr {
+        background: plum;
+      }
+      button {
+        margin-top: 20px;
+        background: black;
+        padding: 10px;
+        width: 200px;
+        color: white;
+        font-weight: 600;
+        font-size: 18px;
+        margin-bottom: 30px;
+      }
+      table {
+        width: 60vw;
+        margin-top: 30px;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 15px;
+      }
+      input {
+        background: none;
+        border: none;
+        outline: none;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    {%for msg in messages%} {%if 'ready' in msg.tags%}
+    <div class="notun"></div>
+    <div class="msg">
+      <h3>{{msg}}</h3>
+      <button onclick="history.back()">Return</button>
+    </div>
+    {%endif%} {%endfor%}
+    <div class="con">
+      <h2>Course Result from First and Second Examiner</h2>
+      <div class="form">
+        <table>
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Remember</th>
+              <th>Understand</th>
+              <th>Apply</th>
+              <th>Analyze</th>
+              <th>Evaluate</th>
+              <th>Create</th>
+              <th>Difference</th>
+              <th>Average Total Marks(100)</th>
+              <th>Grade(4.00)</th>
+            </tr>
+          </thead>
+          {%for o in marks%}
+          <tr>
+            <th>{{o.student.studentId}}</th>
+            <th>{{o.finCLO1}}</th>
+            <th>{{o.finCLO2}}</th>
+            <th>{{o.finCLO3}}</th>
+            <th>{{o.finCLO4}}</th>
+            <th>{{o.finCLO5}}</th>
+            <th>{{o.finCLO6}}</th>
+            <th>{{o.diff}}</th>
+            <th>{{o.total}}</th>
+            <th>{{o.grade}}</th>
+          </tr>
+          {%endfor%}
+        </table>
+        <h2>Course Result From Third Examiner</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Remember</th>
+              <th>Understand</th>
+              <th>Apply</th>
+              <th>Analyze</th>
+              <th>Evaluate</th>
+              <th>Create</th>
+              <th>Total</th>
+              <th>CGPA</th>
+            </tr>
+          </thead>
+          {%for o in marks%}
+          <tr>
+            <th>{{o.student.studentId}}</th>
+            <th>{{o.thirdFinCLO1}}</th>
+            <th>{{o.thirdFinCLO2}}</th>
+            <th>{{o.thirdFinCLO3}}</th>
+            <th>{{o.thirdFinCLO4}}</th>
+            <th>{{o.thirdFinCLO5}}</th>
+            <th>{{o.thirdFinCLO6}}</th>
+            <th>{{o.thirdTotal}}</th>
+            <th>{{o.grade}}</th>
+          </tr>
+          {%endfor%}
+        </table>
+        <button onclick="history.back()">Back</button>
+      </div>
+    </div>
+  </body>
+</html>
+{%endblock body%}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        background: khaki;
+      }
+
+      button {
+        font-family: "Open Sans", sans-serif;
+        font-size: 16px;
+        letter-spacing: 2px;
+        text-decoration: none;
+        text-transform: uppercase;
+        color: #000;
+        cursor: pointer;
+        min-width: 440px;
+        border: 3px solid;
+        height: 40px;
+        background: aliceblue;
+        margin-bottom: 20px;
+        padding: 0.25em 0.5em;
+        box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px,
+          4px 4px 0px 0px, 5px 5px 0px 0px;
+        position: relative;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+
+      button:active {
+        box-shadow: 0px 0px 0px 0px;
+        top: 5px;
+        left: 5px;
+      }
+      button a {
+        color: black;
+        text-decoration: none;
+      }
+      .container {
+        margin-top: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .container h2 {
+        margin-top: 30px;
+        margin-bottom: 0;
+        background: cornflowerblue;
+        text-align: center;
+        border: 3px solid black;
+        border-bottom: 3px solid black;
+        width: 550px;
+        padding: 5px;
+      }
+      .cc {
+        width: 500px;
+        background: whitesmoke;
+        padding: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: none;
+        border: 3px solid black;
+        border-top: none;
+        flex-direction: column;
+      }
+      .kure {
+        margin-top: 30px;
+        background: black;
+        box-shadow: none;
+        color: white;
+        width: 100px;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Deparments</h2>
+      <div class="cc">
+        {%for o in depts%}
+        <button>
+          <a href="/deptSession/{{o.deptId}}">{{o.name}}</a>
+        </button>
+        {%endfor%}
+      </div>
+      <button class="kure" onclick="history.back()">Return</button>
+    </div>
+  </body>
+</html>

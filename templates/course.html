@@ -1,0 +1,245 @@
+{%extends 'navigation.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        background: khaki;
+      }
+      .con {
+        margin-top: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .for {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: lightcoral;
+        width: 45vw;
+        padding-left: 30px;
+        padding-top: 20px;
+        flex-wrap: wrap;
+        border: 3px solid black;
+      }
+      .for button {
+        margin-right: 40px;
+        margin-bottom: 40px;
+        width: 300px;
+        font-size: 20px;
+        font-weight: 600;
+        box-shadow: 5px 5px 0px #25282a;
+        background: peachpuff;
+        height: 140px;
+      }
+      .oki {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60vw;
+        flex-wrap: wrap;
+        border: 3px solid black;
+        border-top: none;
+        padding: 20px;
+        background: lightgoldenrodyellow;
+      }
+      .oki button {
+        width: 350px;
+        background: lightcoral;
+        border: 1px solid black;
+        height: 140px;
+        font-size: 22px;
+        font-weight: 600;
+        margin-right: 40px;
+        margin-bottom: 20px;
+        box-shadow: 5px 5px 0px #25282a;
+      }
+      .con h2 {
+        margin-bottom: 0;
+        background: cornflowerblue;
+        width: 60vw;
+        text-align: center;
+        border: 3px solid black;
+        border-bottom: 1px solid black;
+        padding: 10px;
+      }
+      .notun {
+        background: rgba(87, 87, 87, 0.701);
+        position: fixed;
+        min-height: 101.5vh;
+        min-width: 99vw;
+        z-index: 5;
+        top: 5.7%;
+        width: 100vw;
+      }
+      @keyframes example {
+        0% {
+          transform: scale(0.5, 0.5);
+        }
+        100% {
+          transform: scale(1, 1);
+        }
+      }
+      .form {
+        position: absolute;
+        z-index: 400;
+        padding: 40px;
+        left: 40%;
+        color: black;
+        width: 460px;
+        top: 25%;
+        background: lightcoral;
+        border-radius: 16px;
+        border: 2px solid darkcyan;
+        text-align: center;
+        animation: example cubic-bezier(0.64, 0.34, 1, 1) 0.2s;
+        font-family: "Courier New", Courier, monospace;
+      }
+
+      .form select {
+        padding: 15px;
+        font-size: 18px;
+        width: 350px;
+        background: darkcyan;
+        color: white;
+        margin-bottom: 10px;
+      }
+
+      .form input {
+        padding: 10px;
+        width: 90%;
+        border: 3px solid black;
+        background: whitesmoke;
+      }
+      .button > * {
+        margin-top: 30px;
+        margin-right: 20px;
+        background: black;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        width: 100px;
+        padding: 10px;
+      }
+      .con button {
+        line-height: 2;
+        max-width: 450px;
+        background-size: 100% 200%;
+        background-image: linear-gradient(180deg, transparent 50%, darkcyan 0);
+        transition: background-position 0.5s ease, color 0.5s ease;
+        padding: 0.75rem 0;
+      }
+      .con button:hover {
+        color: white;
+        border: 3px solid white;
+        background-position: 0 100%;
+        transition: background-position 0.5s ease, color 0.5s ease;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    {%for msg in messages%} {%if 'course' in msg.tags%}
+    <div class="notun"></div>
+    <div class="form">
+      <h3>Add New Course</h3>
+      <form method="POST">
+        {%csrf_token%}
+        <select name="courseCode" id="">
+          <option selected disabled>Select Course</option>
+          {%for o in last%}
+          <option value="{{o.courseCode}}">{{o.name}}</option>
+          {%endfor%}
+        </select>
+        <select name="main" id="">
+          <option selected disabled>Select Main Teacher</option>
+          {%for k,v in external.items%}
+          <optgroup label="{{k}}">
+            {%for o in v%}
+            <option value="{{o.email}}">{{o.name}}</option>
+            {%endfor%}
+          </optgroup>
+          {%endfor%}
+        </select>
+        <select name="external" id="">
+          <option selected disabled>Select External Teacher</option>
+          {%for k,v in external.items%}
+          <optgroup label="{{k}}">
+            {%for o in v%}
+            <option value="{{o.email}}">{{o.name}}</option>
+            {%endfor%}
+          </optgroup>
+          {%endfor%}
+        </select>
+        <select name="third" id="">
+          <option selected disabled>Select Third Examiner</option>
+          {%for k,v in external.items%}
+          <optgroup label="{{k}}">
+            {%for o in v%}
+            <option value="{{o.email}}">{{o.name}}</option>
+            {%endfor%}
+          </optgroup>
+          {%endfor%}
+        </select>
+        <div class="button">
+          <button onclick="history.back()">Cancel</button>
+          <button type="submit" name="create">Add</button>
+        </div>
+      </form>
+    </div>
+    {%endif%} {%endfor%}
+    <div class="con">
+      <div class="for">
+        {%if comChairman is 1%}
+        <form method="POST">
+          {%csrf_token%}
+          <button type="submit" name="ok">Add Course</button>
+        </form>
+        {%endif%} {%if flag is 1%}
+        <button
+          onclick="window.location.href='/semResults/{{session.session}}/{{semester.semester}}/{{dept}}'"
+        >
+          Result and Analysis
+        </button>
+        {%endif%} {%if flag is 1%}
+        <button
+          onclick="
+        window.location.href='/status/{{session.session}}/{{semester.semester}}/{{dept}}'
+        "
+        >
+          Semester Progress
+        </button>
+        <button
+          onclick="
+        window.location.href='/copo/{{session.session}}/{{semester.semester}}/{{dept}}'
+        "
+        >
+          Course Outcome Evaluation
+        </button>
+        {%endif%}
+      </div>
+      <h2>Courses</h2>
+      <div class="oki">
+        {%for o in course%}
+        <button
+          onclick="window.location.href='/indCourse/{{session.session}}/{{semester.semester}}/{{o.courseCode}}/{{dept}}'"
+        >
+          {{o.name}}
+        </button>
+        {%endfor%}
+      </div>
+    </div>
+    <form method="POST">
+      {%csrf_token%}
+      <button type="submit" class="back" name="back">Return</button>
+    </form>
+  </body>
+</html>
+{%endblock body%}

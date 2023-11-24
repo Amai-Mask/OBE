@@ -1,0 +1,353 @@
+{%extends 'navigation.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: khaki;
+      }
+      .back {
+        margin-top: 0;
+        margin-left: 0;
+      }
+      h2 {
+        margin-top: 100px;
+        margin-bottom: 0;
+        border: 3px solid black;
+        border-bottom: none;
+        background: peachpuff;
+        width: 60vw;
+        padding: 10px;
+        text-align: center;
+        font-weight: 400;
+      }
+      .con {
+        padding: 20px;
+        width: 60vw;
+        border: 3px solid black;
+        background: lightgoldenrodyellow;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 100px;
+      }
+      .con form button {
+        background: salmon;
+        color: black;
+        padding: 20px;
+        width: 400px;
+        font-size: 20px;
+        height: 150px;
+        box-shadow: 4px 4px 0px black;
+        border: 1px solid black;
+      }
+      .con form button:hover {
+        background: palegreen;
+      }
+      .notun {
+        background: rgba(10, 7, 7, 0.642);
+        position: fixed;
+        height: 94.6vh;
+        min-width: 99.5vw;
+        z-index: 5;
+        top: 5.7%;
+        width: 100vw;
+      }
+      .form {
+        position: absolute;
+        z-index: 400;
+        padding: 40px;
+        top: 15%;
+        left: 40%;
+        color: black;
+        width: 460px;
+        background: whitesmoke;
+        border-radius: 10px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top: 10px solid seagreen;
+        flex-direction: column;
+        font-family: "Courier New", Courier, monospace;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      .form input {
+        width: 350px;
+        border: 1px solid black;
+        padding: 10px;
+        margin-bottom: 20px;
+        outline: none;
+        box-shadow: 2px 2px 0px seagreen;
+      }
+      .form h2 {
+        letter-spacing: 1px;
+        text-shadow: 1px 1px 0px #25282a;
+      }
+      .form textarea {
+        width: 350px;
+        padding: 10px;
+        margin-bottom: 20px;
+        box-shadow: 2px 2px 0px seagreen;
+      }
+      .form button {
+        background: seagreen;
+        padding: 10px;
+        color: white;
+        width: 150px;
+        border: none;
+        font-size: 18px;
+        font-weight: 800;
+        border: 2px solid black;
+      }
+      .form span {
+        width: 90%;
+        margin-bottom: 10px;
+        font-weight: 700;
+        text-align: left;
+      }
+      .ok {
+        border-radius: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 48vw;
+        height: 350px;
+        flex-wrap: wrap;
+        background: mintcream;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+          rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        margin-top: 30px;
+      }
+      .ok > * {
+        width: 50%;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      .kk {
+        width: 350px;
+        margin-right: 40px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+          rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+        align-items: center;
+        border-radius: 10px;
+      }
+      .kk > * {
+        margin-top: 10px;
+      }
+      .kk .cc {
+        background: palegreen;
+        padding: 10px;
+        width: 200px;
+        font-size: 18px;
+        font-weight: 600;
+        margin-top: 20px;
+        border: none;
+        height: 50px;
+        box-shadow: none;
+        border-radius: 10px;
+      }
+      .small {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px;
+        width: 100%;
+        border-bottom: 1px solid black;
+      }
+      .ok button {
+        margin-bottom: 20px;
+      }
+      .file {
+        background: none;
+        width: 300px;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        text-align: center;
+        font-weight: 900;
+        box-shadow: lightgreen 0px 2px 2px, lightgreen 0px 0px 2px 2px;
+        height: auto;
+        border: none;
+      }
+      .file:hover {
+        background: antiquewhite;
+      }
+      .float {
+        position: absolute;
+        width: inherit;
+        padding: inherit;
+        background: rgba(0, 0, 0, 0.419);
+        height: inherit;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        visibility: hidden;
+      }
+      .float button {
+        background: palegreen;
+        padding: 25px;
+        width: 300px;
+        border: 1px solid black;
+        font-size: 18px;
+        font-weight: 600;
+        outline: none;
+        cursor: pointer;
+      }
+      .float button:hover {
+        background: mintcream;
+      }
+      @media only screen and (max-width: 1000px) {
+        .ok {
+          flex-direction: column;
+          height: auto;
+          padding: 40px;
+        }
+        .ok > * {
+          width: 100%;
+          justify-content: center;
+          align-items: center;
+          margin-right: 0;
+        }
+        .float {
+          width: inherit;
+          height: inherit;
+        }
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.4.min.js"
+      integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8="
+      crossorigin="anonymous"
+    ></script>
+    <title>Document</title>
+  </head>
+  <body>
+    {%for msg in messages%} {%if 'kk' in msg.tags%}
+    <div class="notun"></div>
+    <form method="POST" class="form" enctype="multipart/form-data">
+      {%csrf_token%}
+      <h3>Post Assignment</h3>
+      <input type="text" name="name" placeholder="Enter Name" />
+      <textarea
+        name="desc"
+        id=""
+        cols="30"
+        rows="10"
+        placeholder="Assignment Description...."
+      ></textarea>
+      <span>Select Due Date</span>
+      <input type="date" name="date" placeholder="Select Due Date" />
+      <span>Upload Materials</span>
+      <input type="file" name="jj" />
+      <div class="button">
+        <button type="submit" name="cancel">Cancel</button>
+        <button type="submit" name="sth">Post</button>
+      </div>
+    </form>
+    {%endif%} {%endfor%}
+    <h2>Assignments of {{course.name}}</h2>
+    <div class="con">
+      {%if main is True%}
+      <form method="POST">
+        {%csrf_token%}
+        <button name="create" type="submit">Create Assignment</button>
+      </form>
+      {%endif%} {%for o,i in ass%}
+      <div class="ok">
+        <div class="jj">
+          <h3>{{i.name}}</h3>
+          <div class="small">
+            <small><b>{{course.main.name}}</b></small>
+            <small>10 Marks</small>
+          </div>
+          <p>{{i.desc}}</p>
+          {%if i.teaFi%}
+          <button
+            class="file"
+            onclick="
+          window.location.href='/pdf/{{o.assignmentId}}'
+          "
+          >
+            {{i.teaFi}}
+          </button>
+          {%endif%}
+          <small
+            >Due :
+            <b> {{i.date}} </b>
+          </small>
+        </div>
+        <div class="float float{{o.assignmentId}}">
+          <button
+            name="grade"
+            onclick="window.location.href='/indAss/{{o.assignmentId}}'"
+          >
+            Grade Assignment
+          </button>
+        </div>
+        <form method="POST" enctype="multipart/form-data" class="kk">
+          {%csrf_token%}
+          <h3>Submit Assignment</h3>
+          {%if o.fi %}
+          <small
+            onclick="
+          window.location.href='/pdfs/{{o.assignmentId}}/{{o.dept.deptId}}/{{o.session.session}}/{{o.student.studentId}}'
+          "
+            class="file"
+            >{{o.fi}}</small
+          >
+          {%endif%}
+          <input type="file" name="fil" />
+          <button class="cc" name="turn" value="{{o.assignmentId}}">
+            {{o.status}}
+          </button>
+        </form>
+      </div>
+
+      {%endfor%}
+    </div>
+    {%if main is True%}
+    <form method="POST">
+      {%csrf_token%}
+      <button class="back" type="submit" name="cancelo">Return</button>
+    </form>
+    {%else%}
+    <button
+      class="back"
+      onclick="
+    window.location.href='/dashboard'
+    "
+    >
+      Return
+    </button>
+    {%endif%}
+    <script type="text/javascript">
+      $(".ok").mouseenter(function () {
+        if ("{{main}}" == "True") {
+          var th = $(this).find(".float");
+          th.css("visibility", "visible");
+        }
+      });
+      $(".ok").mouseleave(function () {
+        if ("{{main}}" == "True") {
+          var th = $(this).find(".float");
+          th.css("visibility", "hidden");
+        }
+      });
+    </script>
+  </body>
+</html>
+{%endblock body%}

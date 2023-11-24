@@ -1,0 +1,214 @@
+{%extends 'navigation.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Static Template</title>
+    <style>
+      * {
+        font-family: poppins;
+      }
+      body {
+        margin-top: 100px;
+        padding: 0;
+        box-sizing: border-box;
+        background-color: #ede6f6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .main {
+        height: 450;
+        width: 50vw;
+        box-sizing: border-box;
+        background-color: white;
+        border-top: 12px solid #663ab5;
+        border-radius: 10px;
+        margin: 13px;
+        margin-bottom: 0;
+        padding: 10px;
+        padding-left: 30px;
+        font-size: 13px;
+      }
+      .main h1 {
+        font-size: 25px;
+      }
+
+      .submit {
+        width: 50vw;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+      }
+
+      img {
+        margin-top: 13px;
+        height: 200px;
+        width: 50vw;
+        object-fit: fill;
+        object-position: center;
+        border-radius: 10px;
+      }
+
+      .Google {
+        text-align: center;
+      }
+      .dd {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .dd > * {
+        margin-top: 20px;
+        width: 500px;
+        padding: 10px;
+        border-radius: 10px;
+        background: whitesmoke;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      }
+      input[type="file"] {
+        width: 100%;
+        cursor: pointer;
+      }
+      label {
+        font-size: 18px;
+        font-weight: 700;
+        display: block;
+        border-bottom: 1px solid rgba(161, 161, 161, 0.165);
+        margin-bottom: 10px;
+      }
+      .dd button {
+        margin: 13px;
+        margin-left: 0;
+        margin-bottom: 20px;
+        padding: 10px 19px;
+        border-radius: 3px;
+        background-color: #663ab5;
+        border: none;
+        width: 200px;
+        color: white;
+      }
+
+      .dd button:hover {
+        background-color: #452286;
+        transition: ease-in 200ms;
+      }
+      .dd .cancel {
+        background: red;
+        font-weight: 800;
+      }
+      .aa {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: white;
+        border-top: 13px solid red;
+        padding: 20px;
+        margin-top: 30px;
+        width: 50vw;
+        border-radius: 10px;
+      }
+      .aa form {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        width: 500px;
+        background: whitesmoke;
+        border-radius: 10px;
+        padding: 10px;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      }
+
+      .aa form button {
+        background: rgb(90, 213, 90);
+        border: none;
+        border-radius: 6px;
+        box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+        box-sizing: border-box;
+        color: white;
+        cursor: pointer;
+        display: inline-block;
+        font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+        font-size: 16px;
+        font-weight: 800;
+        line-height: 16px;
+        min-height: 40px;
+        outline: 0;
+        padding: 12px 14px;
+        text-align: center;
+        text-rendering: geometricprecision;
+        text-transform: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: middle;
+      }
+      .aa h1 {
+        border-bottom: 1px solid rgba(163, 156, 156, 0.314);
+      }
+      .aa .jj {
+        background: #6331bf;
+      }
+      .aa .kk {
+        background: red;
+      }
+    </style>
+  </head>
+  <body>
+    {%if ok is 0%}
+    <form method="POST" enctype="multipart/form-data">
+      {%csrf_token%}
+      <div class="main">
+        <h1>Add Question</h1>
+        <hr />
+        <p>All the Submissions to this form are required.</p>
+        <h4 style="color: red">* Required</h4>
+        <div class="dd">
+          <div class="ca">
+            <label for="">Quesiton</label>
+            <input type="file" name="ques" required />
+          </div>
+          <input
+            type="number"
+            min="0"
+            placeholder="Enter duration in minutes"
+            name="duration"
+          />
+          <button type="submit" name="save">Save</button>
+          <button class="cancel" onclick="history.back()">Cancel</button>
+        </div>
+      </div>
+    </form>
+    {%endif%}
+    <div class="aa">
+      <h1>Semester Question of {{course}}</h1>
+      {%for o in aa%}
+      <form method="POST">
+        {%csrf_token%}
+        <h3>{{course}}</h3>
+        {%if o.on is 0%}
+        <button type="submit" name="start">Start Exam</button>
+        {%endif%} {%if o.on is 1%}
+        <button class="jj">In Progress</button>
+        {%endif%} {%if o.on is 2%}
+        <button class="kk">Finished</button>
+        {%endif%}
+      </form>
+      {%endfor%}
+    </div>
+  </body>
+</html>
+
+{%endblock body%}

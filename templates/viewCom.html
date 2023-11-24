@@ -1,0 +1,112 @@
+{%extends 'navigation.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        background: khaki;
+      }
+      .container {
+        margin-top: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .container h2 {
+        background-color: #333745;
+        font-family: "Source Sans Pro";
+        color: khaki;
+        font-weight: 150;
+        font-size: 25px;
+        width: 80vw;
+        text-align: center;
+        padding: 10px;
+        letter-spacing: 3px;
+        text-align: center;
+        line-height: 1.2;
+        margin-bottom: 0;
+        text-shadow: 0 0 10px #000;
+        box-shadow: inset 0 0 20px #000000;
+      }
+      .comm {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 80vw;
+        background: cornflowerblue;
+        padding: 30px;
+        border: 3px solid black;
+        border-top: none;
+      }
+      .comm > * {
+        margin-right: 30px;
+        background: lightgoldenrodyellow;
+        width: 400px;
+        text-align: center;
+        height: 150px;
+        border: 1px solid black;
+        box-shadow: 5px 5px 0px #25282a;
+      }
+      .comm > * h2 {
+        margin-top: 0;
+        padding: 5px;
+        text-align: center;
+      }
+      .chairman h3 {
+        margin-top: 0;
+        padding: 5px;
+        background: palevioletred;
+      }
+      h3 {
+        margin-top: 0;
+        padding: 5px;
+        border-bottom: 1px solid black;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      {%for o in com%} {%if o.comId is 1%}
+      <h2>{{o.comId}}st Year Committee</h2>
+      {%elif o.comId is 2%}
+      <h2>{{o.comId}}nd Year Committee</h2>
+      {%elif o.comId is 3%}
+      <h2>{{o.comId}}rd Year Committee</h2>
+      {%else%}
+      <h2>{{o.comId}}th Year Committee</h2>
+      {%endif%}
+      <div class="comm">
+        <div class="chairman">
+          <h3>Chairman</h3>
+          <h4>{{o.comChairman.name}}</h4>
+          <small>{{o.comChairman.email}}</small>
+        </div>
+        <div class="mem1">
+          <h3>Committee Member</h3>
+          <h4>{{o.comMember1.name}}</h4>
+          <small>{{o.comMember1.email}}</small>
+        </div>
+        <div class="mem2">
+          <h3>Committee Member</h3>
+          <h4>{{o.comMember2.name}}</h4>
+          <small>{{o.comMember2.email}}</small>
+        </div>
+      </div>
+      {%endfor%}
+    </div>
+    <button
+      onclick="
+    history.back()
+    "
+      class="back"
+    >
+      Return
+    </button>
+  </body>
+</html>
+{%endblock body%}

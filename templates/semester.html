@@ -1,0 +1,271 @@
+{%extends 'navigation.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        background: khaki;
+      }
+      .container {
+        margin-top: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .container button {
+        width: 320px;
+        height: 100px;
+        font-size: 20px;
+        font-weight: 600;
+        box-shadow: 5px 5px 0px #25282a;
+        background-size: 100% 200%;
+        background-image: linear-gradient(
+          180deg,
+          transparent 50%,
+          cornflowerblue 0
+        );
+        transition: background-position 0.5s ease, color 0.5s ease;
+        padding: 0.75rem 0;
+      }
+      .for button {
+        width: 300px;
+        height: 140px;
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 30px;
+        margin-right: 30px;
+        background: peachpuff;
+        box-shadow: 5px 5px 0px #25282a;
+        background-size: 100% 200%;
+        background-image: linear-gradient(180deg, transparent 50%, cadetblue 0);
+        transition: background-position 0.5s ease, color 0.5s ease;
+        padding: 0.75rem 0;
+      }
+      .notun {
+        background: rgb(174, 174, 174);
+        position: fixed;
+        min-height: 101.5vh;
+        min-width: 99vw;
+        z-index: 5;
+        top: 6%;
+        width: 100vw;
+      }
+      .for {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        background: lightcoral;
+        width: 60vw;
+        padding: 20px;
+        border: 3px solid black;
+      }
+      .oki {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 60vw;
+        padding: 30px;
+        background: lightgoldenrodyellow;
+        border: 3px solid black;
+        border-top: 0;
+      }
+      .container h2 {
+        text-align: center;
+        padding: 10px;
+        width: 60vw;
+        background: cornflowerblue;
+        margin-bottom: 0;
+        border: 3px solid black;
+        border-bottom: 1px solid black;
+      }
+      .oki button {
+        margin-right: 50px;
+        height: 130px;
+        margin-bottom: 20px;
+        background: lightcoral;
+        background-size: 100% 200%;
+        background-image: linear-gradient(180deg, transparent 50%, black 0);
+        transition: background-position 0.5s ease, color 0.5s ease;
+        padding: 0.75rem 0;
+      }
+      .form {
+        position: absolute;
+        z-index: 400;
+        padding: 40px;
+        top: 25%;
+        left: 40%;
+        color: black;
+        width: 400px;
+        background: lightcoral;
+        border-radius: 10px;
+        text-align: center;
+        font-family: "Courier New", Courier, monospace;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      .form select {
+        padding: 10px;
+        width: 300px;
+        margin-bottom: 10px;
+      }
+      .form input {
+        padding: 10px;
+        width: 90%;
+        border: 3px solid black;
+        background: whitesmoke;
+      }
+      .button > * {
+        margin-top: 30px;
+        margin-right: 20px;
+        background: black;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        width: 100px;
+        padding: 10px;
+      }
+      button:hover {
+        color: white;
+        background-position: 0 100%;
+        font-weight: 600;
+        transition: background-position 0.5s ease, color 0.5s ease;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    {%for msg in messages%} {%if 'semester' in msg.tags%}
+    <div class="notun"></div>
+    <div class="form">
+      <form method="POST">
+        {%csrf_token%}
+        <h3>Create New Semester</h3>
+        <select name="semester" id="">
+          <option selected disabled>Select Semester</option>
+          {%for o in last%} {%if o is 1%}
+          <option value="{{o}}">{{o}}st Semester</option>
+          {%elif o is 2%}
+          <option value="{{o}}">{{o}}nd Semester</option>
+          {%elif o is 3%}
+          <option value="{{o}}">{{o}}rd Semester</option>
+          {%else%}
+          <option value="{{o}}">{{o}}th Semester</option>
+          {%endif%} {%endfor%}
+        </select>
+        <div class="button">
+          <button onclick="history.back()">Cancel</button>
+          <button type="submit" name="create">Create</button>
+        </div>
+      </form>
+    </div>
+    {%endif%} {%if 'com' in msg.tags%}
+    <div class="notun"></div>
+    <div class="form">
+      <form method="POST">
+        <h3>Create New Committee</h3>
+        {%csrf_token%}
+        <select name="comId" id="">
+          <option selected disabled>Select Year</option>
+          {%for o in year%} {%if o is 1%}
+          <option value="{{o}}">{{o}}st Year</option>
+          {%elif o is 2%}
+          <option value="{{o}}">{{o}}nd Year</option>
+          {%elif o is 3%}
+          <option value="{{o}}">{{o}}rd Year</option>
+          {%else%}
+          <option value="{{o}}">{{o}}th Year</option>
+          {%endif%} {%endfor%}
+        </select>
+        <select name="chairman" id="">
+          <option selected disabled>Select Chairman</option>
+          {%for o in teacher%}
+          <option value="{{o.email}}">{{o.name}}</option>
+          {%endfor%}</select
+        ><select name="mem1" id="">
+          <option selected disabled>Select Member 1</option>
+          {%for o in teacher%}
+          <option value="{{o.email}}">{{o.name}}</option>
+          {%endfor%}</select
+        ><select name="mem2" id="">
+          <option selected disabled>Select Member 2</option>
+          {%for o in teacher%}
+          <option value="{{o.email}}">{{o.name}}</option>
+          {%endfor%}
+        </select>
+        <div class="button">
+          <button onclick="history.back()">Cancel</button>
+          <button type="submit" name="comCreate">Create</button>
+        </div>
+      </form>
+    </div>
+    {%endif%} {%endfor%}
+    <div class="container">
+      <div class="for">
+        {%if chairman is 1%}
+        <form method="POST">
+          {%csrf_token%}
+          <button type="submit" name="semester">Create Semester</button>
+        </form>
+        <form method="POST">
+          {%csrf_token%}
+          <button type="submit" name="committee">Create Committee</button>
+        </form>
+        {%endif%}
+        <button
+          onclick="
+        window.location.href='/viewCom/{{session.session}}/{{dept}}'
+        "
+        >
+          View Committee
+        </button>
+      </div>
+      <h2>
+        Semesters of Session {{session.session}}-{{session.session|add:1}}
+      </h2>
+      <div class="oki">
+        {%for o in semester%} {%if o.semester is 1%}
+        <button
+          onclick="window.location.href='/course/{{session.session}}/{{o.semester}}/{{dept}}'"
+        >
+          {{o.semester}}st Semester
+        </button>
+        {%elif o.semester is 2%}
+        <button
+          onclick="window.location.href='/course/{{session.session}}/{{o.semester}}/{{dept}}'"
+        >
+          {{o.semester}}nd Semester
+        </button>
+        {%elif o.semester is 3%}
+        <button
+          onclick="window.location.href='/course/{{session.session}}/{{o.semester}}/{{dept}}'"
+        >
+          {{o.semester}}rd Semester
+        </button>
+        {%else%}
+        <button
+          onclick="window.location.href='/course/{{session.session}}/{{o.semester}}/{{dept}}'"
+        >
+          {{o.semester}}th Semester
+        </button>
+        {%endif%} {%endfor%}
+      </div>
+    </div>
+
+    <button
+      onclick="
+      history.back()   
+      "
+      class="back"
+    >
+      Return
+    </button>
+  </body>
+</html>
+{%endblock body%}

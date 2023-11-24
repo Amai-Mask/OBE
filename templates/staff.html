@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      :root {
+        --color-main: #f3950d;
+        --main-accent: #ffebcc;
+        --bg: #f5eedc;
+        --bg-2: #dce5ff;
+        --main: #292c6d;
+        --shadow: rgba(17, 17, 26, 0.1) 2px 0px 16px;
+      }
+      * {
+        padding: 0;
+        margin: 0;
+        text-decoration: none;
+        font-family: "Courier New", Courier, monospace;
+        list-style-type: none;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: var(--bg);
+        overflow-x: hidden;
+      }
+      img {
+        width: 100%;
+        height: auto;
+      }
+      #menu-toggle {
+        display: none;
+      }
+      #menu-toggle:checked ~ .sidebar {
+        left: -345px;
+      }
+      #menu-toggle:checked ~ .main-content {
+        margin-left: 0;
+        width: 100vw;
+      }
+      .overlay {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: 10;
+        display: none;
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+
+      .text-danger {
+        color: red;
+      }
+      .text-success {
+        color: #2ec3a3;
+      }
+      .text-main {
+        color: var(--color-main);
+      }
+      .sidebar {
+        width: 345px;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        padding: 1rem 1.2rem;
+        transition: left 300ms;
+      }
+      .sidebar-container {
+        height: 100%;
+        width: 100%;
+        background-color: #fff;
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+        padding: 1.2rem;
+        overflow-y: auto;
+      }
+      .sidebar-container::-webkit-scrollbar {
+        width: 5px;
+      }
+      .sidebar-container::-webkit-scrollbar-track {
+        box-shadow: var(--shadow);
+      }
+      .sidebar-container::-webkit-scrollbar-thumb {
+        background-color: var(--main-accent);
+        outline: 1px solid #ccc;
+        border-radius: 2px;
+      }
+      .brand {
+        padding-top: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .brand h3 {
+        color: #444;
+        font-size: 3rem;
+      }
+      .brand h3 span {
+        color: var(--color-main);
+        font-size: 2.5rem;
+        display: inline-block;
+        margin-right: 0.5rem;
+      }
+      .sidebar-avatar {
+        display: grid;
+        grid-template-columns: 70px auto;
+        align-items: center;
+        border: 2px solid var(--main-accent);
+        padding: 0.1rem 0.7rem;
+        border-radius: 7px;
+        margin: 2rem 0rem;
+      }
+      .sidebar-avatar img {
+        width: 40px;
+        border-radius: 10px;
+        margin: 5px 0;
+      }
+      .avatar-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .sidebar-menu li {
+        margin-bottom: 2rem;
+      }
+      .sidebar-menu a {
+        color: var(--main-text);
+        display: block;
+        padding: 0.7rem 0;
+      }
+      .sidebar-menu a.active {
+        background-color: var(--main-accent);
+        border-radius: 7px;
+        padding: 0.8rem;
+      }
+      .sidebar-menu a span:first-child {
+        display: inline-block;
+        margin-right: 0.8rem;
+        font-size: 1.5rem;
+        color: var(--color-main);
+      }
+      .sidebar-card {
+        background-color: var(--main-accent);
+        padding: 1rem;
+        margin-top: 2rem;
+        box-shadow: var(--shadow);
+        text-align: center;
+        border-radius: 7px;
+      }
+      .side-card-icon span {
+        font-size: 8rem;
+        color: var(--color-main);
+        display: inline-block;
+      }
+      .side-card-icon {
+        margin-bottom: 0.8rem;
+      }
+      .side-card-icon + div {
+        margin-bottom: 1rem;
+      }
+      .side-card-icon + div p {
+        font-size: 0.8rem;
+        color: #555;
+      }
+      .btn {
+        padding: 0.7rem 1rem;
+        border: none;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+      }
+      .btn span {
+        font-size: 1.2rem;
+        display: inline-block;
+        margin-right: 0.7rem;
+      }
+      .btn-block {
+        display: block;
+        width: 100%;
+      }
+      .btn-main {
+        background-color: var(--color-main);
+        color: #fff;
+      }
+
+      .main-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      header {
+        display: flex;
+        padding-top: 0.5rem;
+        justify-content: space-between;
+      }
+      .header-wrapper {
+        display: flex;
+      }
+      .header-wrapper label {
+        display: inline-block;
+        color: var(--color-main);
+        margin-right: 2rem;
+        font-size: 1.8rem;
+      }
+      .header-wrapper label span:hover {
+        cursor: pointer;
+      }
+      .header-title h1 {
+        color: var(--main-text);
+        font-weight: 600;
+      }
+      .header-title p {
+        color: #666;
+        font-size: 0.9rem;
+      }
+      .header-title p span {
+        color: red;
+        font-size: 1.2rem;
+        display: inline-block;
+        margin-left: 0.5rem;
+      }
+      .header-action button {
+        padding: 0.85rem 2rem;
+        font-size: 1rem;
+      }
+
+      main {
+        padding: 2.5rem 0;
+      }
+      .analytics {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 2.5rem;
+        margin-bottom: 3rem;
+      }
+      .analytic {
+        box-shadow: var(--shadow);
+        padding: 1.5rem;
+        border-radius: 10px;
+        display: flex;
+        padding-left: 2rem;
+      }
+      .analytic-info h4 {
+        font-weight: 400;
+        color: #555;
+        font-size: 0.98rem;
+      }
+      .analytic-info h1 {
+        color: var(--main-text);
+        font-weight: 600;
+      }
+      .analytic-info h1 small {
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+      .analytic:first-child .analytic-icon {
+        background-color: #dce5ff;
+        color: #6883db;
+      }
+      .analytic:nth-child(2) .analytic-icon {
+        background-color: #ebf7f5;
+        color: red;
+      }
+      .analytic:nth-child(3) .analytic-icon {
+        background-color: #ebf7f5;
+        color: #2ec3a3;
+      }
+      .analytic:nth-child(4) .analytic-icon {
+        background-color: var(--main-accent);
+        color: var(--color-main);
+      }
+      .analytic-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        margin-right: 0.8rem;
+      }
+      .section-head {
+        font-size: 1.4rem;
+        color: var(--main);
+        font-weight: 600;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid rgba(154, 148, 148, 0.332);
+      }
+      .block-grid {
+        display: grid;
+        grid-gap: 3rem;
+        grid-template-columns: 30% auto;
+      }
+      .rev-content {
+        background-color: #fff;
+        box-shadow: var(--shadow);
+        border-radius: 15px;
+        padding: 1rem 2rem;
+        text-align: center;
+      }
+      .rev-content img {
+        width: 180px;
+        margin: 1.5rem 0;
+        border-radius: 50%;
+      }
+      .rev-info {
+        margin-bottom: 1rem;
+      }
+      .rev-info h3,
+      .rev-sum h4 {
+        font-weight: 600;
+        color: var(--main);
+      }
+      .rev-info h1,
+      .rev-sum h2 {
+        font-weight: 400;
+        margin-top: 0.4rem;
+        color: #555;
+      }
+      .rev-info h1 small {
+        font-size: 1rem;
+      }
+      .rev-sum {
+        background-color: var(--main-accent);
+        border: 1px solid var(--color-main);
+        padding: 1rem;
+        border-radius: 10px;
+      }
+      .graph-content {
+        border-radius: 15px;
+        box-shadow: var(--shadow);
+        padding: 1rem;
+        background-color: #fff;
+      }
+      .graph-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .icon-wrapper {
+        display: flex;
+        align-items: center;
+      }
+      .icon {
+        height: 40px;
+        width: 40px;
+        border-radius: 7px;
+        background-color: #eee;
+        display: grid;
+        place-items: center;
+        font-size: 1.2rem;
+        margin-right: 0.8rem;
+      }
+      .graph-head select {
+        outline: none;
+        background-color: #eee;
+        height: 35px;
+        border-radius: 10px;
+        padding: 0.5rem 1rem;
+        border: none;
+      }
+      .overlay label {
+        display: block;
+        height: 100%;
+        width: 100%;
+      }
+      @media only screen and (max-width: 1224px) {
+        .sidebar {
+          left: -345px;
+          z-index: 30;
+        }
+        .main-content {
+          width: 100vw;
+          margin-left: 0;
+        }
+        #menu-toggle:checked ~ .sidebar {
+          left: 0;
+        }
+        #menu-toggle:checked ~ .overlay {
+          display: block;
+          text-align: right;
+        }
+      }
+      @media only screen and (max-width: 860px) {
+        .analytics {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .block-grid {
+          grid-template-columns: 100%;
+        }
+        .revenue-card {
+          order: 2;
+        }
+      }
+      @media only screen and (max-width: 580px) {
+        .analytics {
+          grid-template-columns: 100%;
+        }
+      }
+      @media only screen and (max-width: 500px) {
+        .header,
+        header-wrapper {
+          align-items: center;
+        }
+        .header-title h1 {
+          font-size: 1.2em;
+        }
+        .header-title p {
+          display: none;
+        }
+      }
+
+      .kura {
+        width: 49vw;
+        padding: 10px;
+        font-size: 20px;
+        font-weight: 600;
+        background: lightcoral;
+      }
+      .kura option {
+        font-weight: 600;
+        text-align: center;
+        border: 1px solid black;
+      }
+      button {
+        background: palevioletred;
+        color: black;
+        font-weight: 600;
+        font-size: 18px;
+        width: 200px;
+        padding: 13px;
+      }
+      table {
+        margin-top: 20px;
+        width: 60vw;
+      }
+
+      table,
+      th,
+      td {
+        margin-top: 10px;
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      tr {
+        width: 100%;
+        background: peachpuff;
+      }
+      th,
+      td {
+        padding: 15px;
+      }
+      thead tr {
+        background: plum;
+      }
+      .action {
+        background: rgb(239, 106, 106);
+      }
+      .add {
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: var(--bg);
+        padding: 20px;
+      }
+      .add form {
+        background: cadetblue;
+        width: 400px;
+        display: flex;
+        justify-content: center;
+        border-radius: 10px;
+        align-items: center;
+        flex-direction: column;
+        padding: 20px;
+      }
+      .add form input {
+        width: 250px;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      .add select {
+        padding: 10px;
+        width: 250px;
+      }
+      .add button {
+        background: black;
+        width: 140px;
+        pad: 10px;
+        color: white;
+        margin-top: 20px;
+      }
+      .add2 form {
+        background: steelblue;
+      }
+      .add h2 {
+        color: whitesmoke;
+        margin-bottom: 10px;
+      }
+      .add3 form {
+        background: lightseagreen;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="checkbox" name="" id="menu-toggle" />
+    <div class="overlay"><label for="menu-toggle"> </label></div>
+
+    <div class="main-content">
+      <main>
+        <section>
+          <h3 class="section-head">Overview</h3>
+          <div class="analytics">
+            <div class="analytic">
+              <div class="analytic-icon"><span class="las la-eye"></span></div>
+              <div class="analytic-info">
+                <h4>Total Students</h4>
+                <h1>{{std}}</h1>
+              </div>
+            </div>
+            <div class="analytic">
+              <div class="analytic-icon">
+                <span class="las la-clock"></span>
+              </div>
+              <div class="analytic-info">
+                <h4>Total Teachers</h4>
+                <h1>{{tea}}</h1>
+              </div>
+            </div>
+            <div class="analytic">
+              <div class="analytic-icon">
+                <span class="las la-clock"></span>
+              </div>
+              <div class="analytic-info">
+                <h4>Total Courses</h4>
+                <h1>{{cour}}</h1>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3 class="section-head">Students</h3>
+          <div class="form">
+            <form method="POST">
+              {%csrf_token%}
+              <select name="ind" id="" class="kura">
+                <option selected disabled>Select Session</option>
+                {%for o in session%}
+                <option value="{{o.session}}">
+                  {{o.session}}-{{o.session|add:1}}
+                </option>
+                {%endfor%}
+              </select>
+              <button type="submit" name="session">Submit</button>
+            </form>
+            <table>
+              <thead>
+                <tr>
+                  <th>Student Name</th>
+                  <th>Student Id</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              {%for o in studs%}
+              <form method="POST">
+                {%csrf_token%}
+                <tr>
+                  <th>{{o.name}}</th>
+                  <th>{{o.studentId}}</th>
+                  <th>
+                    <button
+                      name="action"
+                      class="action"
+                      type="submit"
+                      value="{{o.email}}"
+                    >
+                      Delete
+                    </button>
+                  </th>
+                </tr>
+              </form>
+
+              {%endfor%}
+            </table>
+            <div class="add">
+              <form method="POST">
+                {%csrf_token%}
+                <h2>Add Student</h2>
+                <input type="text" name="name" placeholder="Enter Name" />
+                <input type="email" name="email" placeholder="Enter Email" />
+                <input type="number" name="id" placeholder="Enter Student Id" />
+                <select name="addSession" id="">
+                  <option selected disabled>Select Session</option>
+                  {%for o in session%}
+                  <option value="{{o.session}}">
+                    {{o.session}}-{{o.session|add:1}}
+                  </option>
+                  {%endfor%}
+                </select>
+                <button name="addStud" type="submit">Add</button>
+              </form>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3 class="section-head">Teachers</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Teacher Name</th>
+                <th>Teacher ID</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            {%for o in teachers%}
+            <tr>
+              <th>{{o.name}}</th>
+              <th>{{o.teacherId}}</th>
+              <th>{{o.email}}</th>
+            </tr>
+            {%endfor%}
+          </table>
+          <div class="add add2">
+            <form method="POST">
+              {%csrf_token%}
+              <h2>Add Teacher</h2>
+              <input type="text" name="name" placeholder="Enter Name" />
+              <input type="email" name="email" placeholder="Enter Email" />
+              <input type="number" name="id" placeholder="Enter Teacher Id" />
+              <button name="addTea" type="submit">Add</button>
+            </form>
+          </div>
+        </section>
+        <section>
+          <h3 class="section-head">Courses</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Course Name</th>
+                <th>Course Code</th>
+                <th>Credit</th>
+              </tr>
+            </thead>
+            {%for o in courses%}
+            <tr>
+              <th>{{o.name}}</th>
+              <th>{{o.courseCode}}</th>
+              <th>{{o.credit}}</th>
+            </tr>
+            {%endfor%}
+          </table>
+          <div class="add add3">
+            <form method="POST">
+              {%csrf_token%}
+              <h2>Add Course</h2>
+              <input type="text" name="name" placeholder="Enter Course Nmae" />
+              <input
+                type="number"
+                name="code"
+                placeholder="Enter Course Code"
+              />
+              <input
+                type="number"
+                name="credit"
+                placeholder="Enter Course Credit"
+              />
+              <label for="">NON-OBE/OBE</label>
+              <input type="checkbox" name="obe" />
+              <button name="addCourse" type="submit">Add</button>
+            </form>
+          </div>
+        </section>
+      </main>
+      <button onclick="location.href='/'">Home</button>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,472 @@
+{%extends 'navigation.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        background: lightsalmon;
+        position: relative;
+      }
+      .kk {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 100px;
+      }
+      .navo {
+        background: linen;
+        padding: 20px;
+        color: black;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        text-align: center;
+        display: flex;
+        border-right: 1px solid rgba(0, 0, 0, 0.131);
+        width: 250px;
+        height: 80vh;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .navo form > * {
+        width: 250px;
+        margin-top: 30px;
+        font-size: 18px;
+        width: 100%;
+        color: black;
+        padding: 10px;
+        border: none;
+        border-bottom: 1px solid rgba(121, 119, 119, 0.355);
+
+        background: none;
+      }
+      .navo form button:hover {
+        background: salmon;
+        border-radius: 5px;
+        font-weight: 600;
+        color: black;
+      }
+      .con {
+        width: 70vw;
+        height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linen;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        flex-direction: column;
+      }
+
+      .main .btn {
+        background: lightcoral;
+      }
+      .third .btn {
+        background: lightblue;
+      }
+      .btn:hover {
+        background: mintcream;
+        color: black;
+      }
+      .notun {
+        background: rgb(204, 204, 204);
+        position: fixed;
+        min-height: 101.5vh;
+        min-width: 99vw;
+        z-index: 5;
+        top: 6%;
+        width: 100vw;
+      }
+      .con .ki {
+        background: lightcoral;
+        box-shadow: 5px 5px 0px #25282a;
+        border: 3px solid black;
+        border-top: none;
+        padding: 20px;
+        text-align: center;
+        width: 400px;
+      }
+      .con h2 {
+        width: 400px;
+        border: 3px solid black;
+        border-bottom: 1px solid black;
+        margin-top: 0;
+        margin-bottom: 0;
+        box-shadow: 5px 5px 0px #25282a;
+        padding: 10px;
+        text-align: center;
+        background: cornflowerblue;
+      }
+      .form {
+        position: absolute;
+        left: 50%;
+        z-index: 400;
+        padding: 40px;
+        top: 30%;
+        left: 40%;
+        color: black;
+        width: 400px;
+        background: lightcoral;
+        border-radius: 10px;
+        text-align: center;
+        font-family: "Courier New", Courier, monospace;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      input {
+        padding: 10px;
+        width: 90%;
+        border: 3px solid black;
+        background: whitesmoke;
+      }
+      .button > * {
+        margin-top: 30px;
+        margin-right: 20px;
+        background: black;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 600;
+        width: 100px;
+        padding: 10px;
+      }
+      .con .cour {
+        background: slateblue;
+        width: 50vw;
+        box-shadow: none;
+      }
+      .oo {
+        background: lightgoldenrodyellow;
+        width: 50vw;
+        padding: 20px;
+        border: 3px solid black;
+        border-top: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .oo > * {
+        background: salmon;
+        padding: 15px;
+        text-align: center;
+        border: 1px solid black;
+        width: 350px;
+        margin-bottom: 20px;
+        margin-right: 20px;
+        height: 160px;
+        box-shadow: 5px 5px 0px #25282a;
+      }
+      .oo > *:hover {
+        background: mintcream;
+        color: black;
+        cursor: pointer;
+      }
+      table {
+        margin-top: 20px;
+        margin: auto;
+        width: 60vw;
+      }
+
+      table,
+      th,
+      td {
+        margin-top: 10px;
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      tr {
+        width: 100%;
+        background: peachpuff;
+      }
+      .ku {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        max-height: 70vh;
+        position: absolute;
+        z-index: 100;
+        top: 5%;
+        overflow-y: scroll;
+      }
+      .ku h2 {
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+      .kura {
+        width: 49vw;
+        padding: 10px;
+        font-size: 20px;
+        font-weight: 600;
+        background: lightcoral;
+      }
+      .kura option {
+        font-weight: 600;
+        text-align: center;
+        border: 1px solid black;
+      }
+      button {
+        background: palevioletred;
+        color: black;
+        font-weight: 600;
+        font-size: 18px;
+        width: 200px;
+        padding: 13px;
+      }
+      th,
+      td {
+        padding: 15px;
+      }
+      .ku h2 {
+        padding: 10px;
+        font-size: 20px;
+        width: 280px;
+        box-shadow: none;
+        border: 2px solid black;
+      }
+      thead tr {
+        background: plum;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div class="kk">
+      <div class="navo">
+        <form method="POST">
+          {%csrf_token%} {%if chairman is 1%} {%if flag is 1%}
+          <button
+            type="submit"
+            style="background: salmon; border-radius: 10px; font-weight: 600"
+            name="session"
+          >
+            Create Session
+          </button>
+          {%else%}
+          <button type="submit" name="session">Create Session</button>
+          {%endif%} {%if flag is 2%}
+          <button
+            type="submit"
+            style="background: salmon; border-radius: 10px; font-weight: 600"
+            name="createCom"
+          >
+            Create Committee
+          </button>
+          {%else%}
+          <button type="submit" name="createCom">Create Committee</button>
+          {%endif%} {%if flag is 4%}
+          <button
+            type="submit"
+            style="background: salmon; border-radius: 10px; font-weight: 600"
+            name="createSem"
+          >
+            Create Semester
+          </button>
+          {%else%}
+          <button type="submit" name="createSem">Create Semester</button>
+          {%endif%} {%endif%}
+          <button type="submit" name="viewSession">View Session</button>
+          {%if flag is 3%}
+          <button
+            type="submit"
+            style="background: salmon; border-radius: 10px; font-weight: 600"
+            name="viewCom"
+          >
+            Performance
+          </button>
+          {%else%}
+          <button type="submit" name="viewCom">Performance</button>
+          {%endif%} {%if flag is 5%}
+          <button
+            type="submit"
+            style="background: salmon; border-radius: 10px; font-weight: 600"
+            name="course"
+          >
+            Create Course
+          </button>
+          {%else%}
+          <button type="submit" name="course">Create Course</button>
+          {%endif%} {%if flag is 6%}
+          <button
+            type="submit"
+            name="courseTeacher"
+            style="background: salmon; border-radius: 10px; font-weight: 600"
+          >
+            Course Teacher
+          </button>
+          {%else%}
+          <button type="submit" name="courseTeacher">Course Teacher</button>
+          {%endif%} {%if flag is 7%}
+          <button
+            name="external"
+            style="background: salmon; border-radius: 10px; font-weight: 600"
+            type="submit"
+          >
+            External
+          </button>
+          {%else%}
+          <button name="external" type="submit">External</button>
+          {%endif%} {%if flag is 8%}
+          <button
+            name="thirdExaminer"
+            type="submit"
+            style="background: salmon; border-radius: 10px; font-weight: 600"
+          >
+            Third Examiner
+          </button>
+          {%else%}
+          <button name="thirdExaminer" type="submit">Third Examiner</button>
+          {%endif%} {%if chairman is 1%} {%if flag is 9%}
+          <button
+            name="overview"
+            type="submit"
+            style="background: salmon; border-radius: 10px; font-weight: 600"
+          >
+            Overview
+          </button>
+          {%else%}
+          <button name="overview" type="submit">Overview</button>
+          {%endif%} {%endif%}
+        </form>
+      </div>
+      <div class="con">
+        {%if flag is 1%}
+        <h2>Enter Session</h2>
+        <form method="POST" class="ki">
+          {%csrf_token%}
+          <input type="number" name="id" placeholder="Enter Session" />
+          <div class="button">
+            <button type="submit" name="create">Create</button>
+          </div>
+        </form>
+        {%endif%} {%if flag is 2%}
+        <h2>Enter Session</h2>
+        <form method="POST" class="ki">
+          {%csrf_token%}
+          <input type="number" name="id" placeholder="Enter Session" />
+          <div class="button">
+            <button type="submit" name="createCommittee">Submit</button>
+          </div>
+        </form>
+        {%endif%} {%if flag is 3%}
+        <h2>Enter Session</h2>
+        <form method="POST" class="ki">
+          {%csrf_token%}
+          <input type="number" name="id" placeholder="Enter Session" />
+          <div class="button">
+            <button type="submit" name="viewCommittee">Submit</button>
+          </div>
+        </form>
+        {%endif%} {%if flag is 4%}
+        <h2>Enter Session</h2>
+        <form method="POST" class="ki">
+          {%csrf_token%}
+          <input type="number" name="semSession" placeholder="Enter Session" />
+          <div class="button">
+            <button type="submit" name="createSemester">Submit</button>
+          </div>
+        </form>
+        {%endif%} {%if flag is 5%}
+        <h2>Enter Session</h2>
+        <form method="POST" class="ki">
+          {%csrf_token%}
+          <input type="number" name="corSession" placeholder="Enter Session" />
+          <div class="button">
+            <button type="submit" name="createCourse">Submit</button>
+          </div>
+        </form>
+        {%endif%} {%if flag is 6%}
+        <h2 class="cour">Courses</h2>
+        <div class="oo">
+          {%for o in course%}
+          <div
+            class="course"
+            onclick="
+          window.location.href='/indCourse/{{o.session.session}}/{{o.semester.semester}}/{{o.courseCode}}/{{o.dept.deptId}}'
+          "
+          >
+            <h3>{{o.name}}</h3>
+            <small>Course Code: {{o.courseCode}}</small>
+          </div>
+          {%endfor%}
+        </div>
+        {%endif%} {%if flag is 7%}
+        <h2 class="cour">Courses</h2>
+        <div class="oo">
+          {%for o in course%}
+          <div
+            class="course"
+            onclick="
+          window.location.href='/indCourse/{{o.session.session}}/{{o.semester.semester}}/{{o.courseCode}}/{{o.dept.deptId}}'
+          "
+          >
+            <h3>{{o.name}}</h3>
+            <small>Course Code: {{o.courseCode}}</small>
+          </div>
+          {%endfor%}
+        </div>
+        {%endif%} {%if flag is 8%}
+        <h2 class="cour">Courses</h2>
+        <div class="oo">
+          {%for o in course%}
+          <div
+            class="course"
+            onclick="
+          window.location.href='/indCourse/{{o.session.session}}/{{o.semester.semester}}/{{o.courseCode}}/{{o.dept.deptId}}'
+          "
+          >
+            <h3>{{o.name}}</h3>
+            <small>Course Code: {{o.courseCode}}</small>
+          </div>
+          {%endfor%}
+        </div>
+        {%endif%} {%if flag is 9%}
+        <div class="ku">
+          <form method="POST">
+            {%csrf_token%}
+            <select name="year" id="" class="kura">
+              <option selected disabled>Select Year</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+            <button type="submit" name="dekho">View</button>
+          </form>
+          <h2>{{ss}} Year</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Course Name</th>
+                <th>Semester</th>
+                <th>Course Teacher</th>
+                <th>External</th>
+                <th>Third Exaimner</th>
+              </tr>
+            </thead>
+            {%for o in a%}
+            <tr>
+              <th>{{o.name}}</th>
+              <th>{{o.semester.semester}}</th>
+              <th>{{o.main.name}}</th>
+              <th>{{o.external.name}}</th>
+              <th>{{o.thirdExaminer.name}}</th>
+            </tr>
+            {%endfor%}
+          </table>
+        </div>
+
+        {%endif%}
+      </div>
+    </div>
+  </body>
+</html>
+{%endblock body%}

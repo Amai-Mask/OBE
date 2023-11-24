@@ -1,0 +1,175 @@
+{%extends 'navigation.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+    body {
+      background: khaki;
+    }
+    .con {
+      margin-top: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .con h2 {
+      background: lightcoral;
+      width: 70vw;
+      text-align: center;
+      border: 3px solid black;
+      border-bottom: 1px solid black;
+      margin-bottom: 0;
+      padding: 10px;
+    }
+    .con form {
+      background: lightgoldenrodyellow;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 70vw;
+      flex-direction: column;
+      border: 3px solid black;
+      border-top: none;
+      padding: 20px;
+    }
+    .button {
+      margin-top: 50px;
+    }
+    .button button {
+      background: black;
+      padding: 10px;
+      width: 200px;
+      color: white;
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+    table {
+      width: 60vw;
+      margin: auto;
+      margin-bottom: 30px;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    select {
+      width: 50vw;
+      padding: 15px;
+      font-size: 20px;
+      font-weight: 600;
+      background: salmon;
+      border: 1px solid black;
+      outline: none;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .so button {
+      background: palegreen;
+      border: 2px solid black;
+      font-size: 18px;
+      font-weight: 600;
+      width: 180px;
+      padding: 18px;
+    }
+    thead {
+      background: peachpuff;
+    }
+    th,
+    td {
+      padding: 15px;
+    }
+    input {
+      background: none;
+      border: none;
+      outline: none;
+    }
+    .pub {
+      background: palegreen;
+      padding: 10px;
+      outline: none;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 600;
+      width: 160px;
+      border: 2px solid black;
+    }
+    h3 {
+      background: paleturquoise;
+      width: 60vw;
+      text-align: center;
+      border: 1px solid black;
+      border-bottom: none;
+      margin-bottom: 0;
+      padding: 12px;
+    }
+  </style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="con">
+      <h2>Tutorial Marks</h2>
+      <form method="POST">
+        {%csrf_token%} {%if course.tutDone is 0%}
+        <div class="so">
+          <select name="limit" id="">
+            <option selected disabled>Select Best Of</option>
+            {%for o in cn%}
+            <option value="{{o|add:1}}">{{o|add:1}}</option>
+            {%endfor%}
+          </select>
+          <button type="submit" name="ok">View</button>
+        </div>
+        {%endif%}
+        <h3>Best of {{course.selected}}</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Student Name</th>
+              <th>Tutorial Marks</th>
+              {%if course.credit is not 3%}
+              <th>Lab Evaluation</th>
+              <th>Assignments</th>
+              {%endif%}
+              <th>Attendance</th>
+              {%if course.credist is not 3%}
+              <th>Total (60)</th>
+              {%else%}
+              <th>Total (40)</th>
+              {%endif%}
+            </tr>
+          </thead>
+          {%for o in ko%}
+          <tr>
+            <th>{{o.student.studentId}}</th>
+            <th>{{o.student.name}}</th>
+            <th>{{o.tutorial}}</th>
+            {%if course.credit is not 3%}
+            <th>{{o.lab}}</th>
+            <th>{{o.assignment}}</th>
+            {%endif%}
+            <th>{{o.attendance}}</th>
+            <th>{{o.total}}</th>
+          </tr>
+          {%endfor%}
+        </table>
+        {%if course.tutDone is 0%}
+        <button name="publish" class="pub" type="submit">Publish</button>
+        {%endif%}
+      </form>
+    </div>
+    <form method="POST">
+      {%csrf_token%}
+      <button class="back" name="back">Return</button>
+    </form>
+  </body>
+</html>
+{%endblock body%}

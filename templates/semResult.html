@@ -1,0 +1,335 @@
+{%extends 'navigation.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        background: khaki;
+      }
+      .con {
+        margin-top: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      table {
+        width: 40vw;
+        margin: none;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 15px;
+      }
+      thead {
+        background: peachpuff;
+      }
+      .notun {
+        background: rgba(174, 174, 174, 0.809);
+        position: fixed;
+        min-height: 101.5vh;
+        min-width: 99vw;
+        z-index: 5;
+        top: 5.7%;
+        width: 100vw;
+      }
+      .msg {
+        position: absolute;
+        top: 30%;
+        z-index: 100;
+        background: lightcoral;
+        left: 40%;
+        width: 400px;
+        font-weight: 600;
+        border-radius: 10px;
+        height: 200px;
+        padding: 30px;
+        font-size: 18px;
+        text-align: center;
+      }
+      .msg button {
+        background: black;
+        font-size: 18px;
+        font-weight: 600;
+        color: white;
+        border-radius: 10px;
+        padding: 10px;
+        width: 150px;
+        border: none;
+      }
+      .chart {
+        margin-top: 40px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .chart > * {
+        text-align: center;
+        width: 500px;
+        padding: 20px;
+        margin-right: 30px;
+        margin-bottom: 30px;
+      }
+      .ll {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .ll > * {
+        margin-top: 50px;
+        margin-right: 40px;
+      }
+      .ll > * h2 {
+        margin-top: none;
+        margin-bottom: none;
+        width: 100%;
+        text-align: center;
+        background: lightsalmon;
+        padding: 10px;
+        border: 1px solid black;
+        border-bottom: none;
+      }
+      .k table {
+        margin-top: -22px;
+        background: antiquewhite;
+      }
+      canvas {
+        background: mintcream;
+        padding: 15px;
+        border: 3px solid black;
+        border-top: 1px solid black;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+      .chart h2 {
+        margin-bottom: 0;
+        background: cornflowerblue;
+        padding: 10px;
+        border: 3px solid black;
+        border-bottom: none;
+      }
+      .rem h2 {
+        background: lightcoral;
+      }
+      .und h2 {
+        background: mediumaquamarine;
+      }
+      .ana h2 {
+        background: plum;
+      }
+      .ev h2 {
+        background: paleturquoise;
+      }
+      .cr h2 {
+        background: peachpuff;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    {%for msg in messages%} {%if 'ready' in msg.tags%}
+    <div class="notun"></div>
+    <div class="msg">
+      <p>{{msg}}</p>
+      <button onclick="history.back()">Return</button>
+    </div>
+    {%endif%} {%endfor%}
+    <div class="con">
+      <div class="ll">
+        <div class="k">
+          <h2 class="a">{{ss}} Result</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Student ID</th>
+                <th>CGPA</th>
+              </tr>
+            </thead>
+            {%for o in marks%}
+            <tr>
+              <th>{{o.student.studentId}}</th>
+              <th>{{o.grade}}</th>
+            </tr>
+            {%endfor%}
+          </table>
+        </div>
+        <div class="k">
+          <h2>Result Overview</h2>
+          <table>
+            <tr>
+              <th>Total Appeared</th>
+              <th>{{no}}</th>
+            </tr>
+            <tr>
+              <th>Total Passed</th>
+              <th>{{totalPass}}</th>
+            </tr>
+            <tr>
+              <th>Total Failed</th>
+              <th>{{totalFail}}</th>
+            </tr>
+            <tr>
+              <th>Pass Rate</th>
+              <th>{{passRate}}%</th>
+            </tr>
+            <tr>
+              <th>Fail Rate</th>
+              <th>{{failRate}}%</th>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="chart">
+        <div class="rem">
+          <h2>Remember</h2>
+          <canvas id="rem"></canvas>
+        </div>
+        <div class="und">
+          <h2>Understand</h2>
+          <canvas id="und"></canvas>
+        </div>
+        <div class="ap">
+          <h2>Apply</h2>
+          <canvas id="ap"></canvas>
+        </div>
+        <div class="ana">
+          <h2>Analyze</h2>
+          <canvas id="ana"></canvas>
+        </div>
+        <div class="ev">
+          <h2>Evlauate</h2>
+          <canvas id="ev"></canvas>
+        </div>
+        <div class="cr">
+          <h2>Create</h2>
+          <canvas id="cr"></canvas>
+        </div>
+      </div>
+    </div>
+    <button class="back" onclick="history.back()">Back</button>
+    <script type="text/javascript">
+      const ctx = document.getElementById("rem");
+      var ee = {{remLabels|safe}};
+      var ff = {{remData|safe}};
+      new Chart(ctx, {
+        type: "doughnut",
+        data: {
+          labels: ee,
+          datasets: [
+            {
+              label: "No of Students",
+              data: ff,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+        },
+      });
+      const dtx = document.getElementById("und");
+      var ee = {{undLabels|safe}};
+      var ff = {{undData|safe}};
+      new Chart(dtx, {
+        type: "doughnut",
+        data: {
+          labels: ee,
+          datasets: [
+            {
+              label: "No of Students",
+              data: ff,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+        },
+      });
+      const etx = document.getElementById("ap");
+      var ee = {{apLabels|safe}};
+      var ff = {{apData|safe}};
+      new Chart(etx, {
+        type: "doughnut",
+        data: {
+          labels: ee,
+          datasets: [
+            {
+              label: "No of Students",
+              data: ff,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+        },
+      });
+      const ftx = document.getElementById("ana");
+      var ee = {{anaLabels|safe}};
+      var ff = {{anaData|safe}};
+      new Chart(ftx, {
+        type: "doughnut",
+        data: {
+          labels: ee,
+          datasets: [
+            {
+              label: "No of Students",
+              data: ff,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+        },
+      });
+      const gtx = document.getElementById("ev");
+      var ee = {{evLabels|safe}};
+      var ff = {{evData|safe}};
+      new Chart(gtx, {
+        type: "doughnut",
+        data: {
+          labels: ee,
+          datasets: [
+            {
+              label: "No of Students",
+              data: ff,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+        },
+      });
+      const htx = document.getElementById("cr");
+      var ee = {{crLabels|safe}};
+      var ff = {{crData|safe}};
+      new Chart(htx, {
+        type: "doughnut",
+        data: {
+          labels: ee,
+          datasets: [
+            {
+              label: "No of Students",
+              data: ff,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+        },
+      });
+    </script>
+  </body>
+</html>
+{%endblock body%}

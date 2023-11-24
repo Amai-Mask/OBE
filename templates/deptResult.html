@@ -1,0 +1,149 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        background: khaki;
+      }
+
+      button {
+        font-family: "Open Sans", sans-serif;
+        font-size: 16px;
+        letter-spacing: 2px;
+        text-decoration: none;
+        text-transform: uppercase;
+        color: #000;
+        cursor: pointer;
+        min-width: 440px;
+        border: 3px solid;
+        height: 40px;
+        background: azure;
+        margin-bottom: 20px;
+        padding: 0.25em 0.5em;
+        box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px,
+          4px 4px 0px 0px, 5px 5px 0px 0px;
+        position: relative;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+
+      button:active {
+        box-shadow: 0px 0px 0px 0px;
+        top: 5px;
+        left: 5px;
+      }
+      button a {
+        color: black;
+        text-decoration: none;
+      }
+      .container {
+        margin-top: 100px;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .container > * {
+        width: 90%;
+      }
+      .container h2 {
+        margin-top: 30px;
+        margin-bottom: 0;
+        background: rgb(245, 144, 133);
+        text-align: center;
+        border: 3px solid black;
+        border-bottom: 3px solid black;
+        padding: 5px;
+      }
+      .cc {
+        background: whitesmoke;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: none;
+        border: 3px solid black;
+        border-top: none;
+        padding: 5px;
+        padding-top: 20px;
+      }
+      .co {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: azure;
+        border: 1px solid green;
+        margin-right: 20px;
+        margin-bottom: 20px;
+        flex-direction: column;
+        width: 500px;
+        height: 300px;
+      }
+      .co img {
+        width: 100px;
+        height: 100px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      .so {
+        display: flex;
+        justify-content: center;
+        cursor: pointer;
+        align-items: center;
+        background: beige;
+        flex-direction: column;
+        height: 100%;
+        border-top: 1px solid black;
+        width: 100%;
+      }
+      .so > * {
+        margin-bottom: 5px;
+      }
+      .container button {
+        width: 150px;
+        margin-top: 30px;
+      }
+      a {
+        color: black;
+        text-decoration: none;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Sessions</h2>
+      <div class="cc">
+        {%for o in oo%}
+        <a
+          href="/deptSem/{{o.dept.deptId}}/{{o.session.session}}/{{o.semester}}"
+        >
+          <div class="co">
+            <img src="{%static '../static/ok.png'%}" alt="" />
+            <div class="so">
+              <h3>{{o.dept.name}}</h3>
+              <h4>
+                Session: {{o.session.session}}-{{o.session.session|add:1}}
+              </h4>
+              {%if o.semester is 1%}
+              <h4>1st Semester</h4>
+              {%elif o.semester is 2%}
+              <h4>2nd Semester</h4>
+              {%elif o.semester is 3%}
+              <h4>3rd Semester</h4>
+              {%else%}
+              <h4>{{o.semester}}th Semester</h4>
+              {%endif%}
+            </div>
+          </div>
+        </a>
+        {%endfor%}
+      </div>
+      <button onclick="history.back()">Return</button>
+    </div>
+  </body>
+</html>

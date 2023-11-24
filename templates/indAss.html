@@ -1,0 +1,181 @@
+{%extends 'navigation.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        background: khaki;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      h2 {
+        margin-bottom: 0;
+        margin-top: 150px;
+        background: skyblue;
+        padding: 10px;
+        border: 3px solid black;
+        border-bottom: 1px solid black;
+        text-align: center;
+        width: 60vw;
+      }
+      .con {
+        background: lightgoldenrodyellow;
+        width: 60vw;
+        border: 3px solid black;
+        padding: 20px;
+        border-top: none;
+
+        margin-bottom: 100px;
+      }
+      .con form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      table {
+        font-size: 90%;
+        table-layout: fixed;
+        width: 100%;
+      }
+
+      table {
+        border-collapse: separate;
+        border-spacing: 2px;
+        text-align: center;
+      }
+      th,
+      td {
+        border-width: 1px;
+        padding: 10px;
+        position: relative;
+        text-align: center;
+      }
+      .back {
+        margin-left: 0;
+      }
+      th,
+      td {
+        border-radius: 0.25em;
+        border-style: solid;
+      }
+      th {
+        background: whitesmoke;
+        border-color: #bbb;
+      }
+      thead th {
+        font-size: 19px;
+        font-weight: 500;
+        background: lightsalmon;
+        border: 1px solid black;
+      }
+      td {
+        border-color: black;
+      }
+      .pub {
+        background: lightgreen;
+        padding: 10px;
+        width: 160px;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin-top: 26px;
+        border: 1px solid black;
+        outline: none;
+        cursor: pointer;
+      }
+      .button > * {
+        margin-top: 30px;
+        background: black;
+        color: white;
+        padding: 10px;
+        width: 140px;
+      }
+      th button {
+        width: 100%;
+        outline: none;
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 5px;
+      }
+      th button:hover {
+        background: linen;
+      }
+      th input {
+        text-align: center;
+        background: none;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        font-size: 16px;
+        border-radius: 10px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+          rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>Assignment :{{assignment.name}}</h2>
+    <div class="con">
+      <form method="POST">
+        {%csrf_token%}
+        <table>
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Student Name</th>
+              <th>Files</th>
+              <th>Status</th>
+              <th>Marks</th>
+            </tr>
+          </thead>
+          {%for o in ass%}
+          <tr>
+            <th>{{o.student.studentId}}</th>
+            <th>{{o.student.name}}</th>
+            <th>
+              {%if o.fi%}
+              <button
+                type="submit"
+                name="dekha"
+                value="{{o.student.studentId}}"
+              >
+                {{o.fi}}
+              </button>
+              {%endif%}
+            </th>
+
+            {%if o.status == 'pending' %}
+            <th style="color: red; font-size: 17px">Pending</th>
+            {%elif o.status == 'Turned In'%}
+            <th style="color: limegreen; font-size: 17px">{{o.status}}</th>
+            {%else%}
+            <th style="color: royalblue; font-size: 17px">{{o.status}}</th>
+            {%endif%}
+            <th>
+              <input
+                type="number"
+                max="10"
+                min="0"
+                name="marks"
+                value="{{o.marks}}"
+              />
+            </th>
+          </tr>
+          {%endfor%}
+        </table>
+        <div class="button">
+          <button name="cancel" type="submit">Cancel</button>
+          <button name="grading" type="submit">Save</button>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
+{%endblock body%}

@@ -1,0 +1,170 @@
+{%extends 'navigation.html'%} {%block body%}
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+    body {
+      background: khaki;
+    }
+    .con {
+      margin-top: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .con h2 {
+      background: lightcoral;
+      width: 70vw;
+      text-align: center;
+      border: 3px solid black;
+      border-bottom: 1px solid black;
+      margin-bottom: 0;
+      padding: 10px;
+    }
+    .con form {
+      background: lightgoldenrodyellow;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 70vw;
+      flex-direction: column;
+      border: 3px solid black;
+      border-top: none;
+      padding: 20px;
+    }
+    .button {
+      margin-top: 50px;
+    }
+    .button button {
+      background: black;
+      padding: 10px;
+      width: 200px;
+      color: white;
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+    table {
+      width: 60vw;
+      margin: auto;
+    }
+
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    .prev {
+      padding: 30px;
+      width: 70vw;
+      background: linen;
+      border: 3px solid black;
+      border-top: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-bottom: 50px;
+    }
+
+    .prev table {
+      margin-bottom: 30px;
+      background: lightgoldenrodyellow;
+    }
+    .ff {
+      background: plum;
+    }
+    .prev h3 {
+      padding: 10px;
+      border: 1px solid black;
+      border-bottom: none;
+      width: 60vw;
+      margin-bottom: -2px;
+      background: lightsteelblue;
+      text-align: center;
+    }
+
+    th,
+    td {
+      padding: 15px;
+    }
+    thead {
+      background: peachpuff;
+    }
+    input {
+      background: none;
+      border: none;
+      outline: none;
+    }
+  </style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="con">
+      {%if course.tutDone is 0%}
+      <h2>Tutorial Marks - {{cn}}</h2>
+      <form method="POST">
+        {%csrf_token%}
+        <table>
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Tutorial Marks (30)</th>
+            </tr>
+          </thead>
+          {%for o in marks%}
+          <tr>
+            <th>{{o.studentId}}</th>
+            <th>
+              <input
+                type="number"
+                max="30"
+                min="0"
+                step=".01"
+                value="0"
+                name="tut"
+              />
+            </th>
+          </tr>
+          {%endfor%}
+        </table>
+        <div class="button">
+          <button type="submit" name="cancel">Cancel</button>
+          <button type="submit" name="save">Save</button>
+        </div>
+      </form>
+      {%endif%}
+      <h2 class="ff">Tutorials</h2>
+      <div class="prev">
+        {%for o,i in zz.items%}
+        <h3>Tutorial - {{o}}</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Student ID</th>
+              <th>Student Name</th>
+              <th>Tutorial Marks (30)</th>
+            </tr>
+          </thead>
+          {%for c in i%}
+          <tr>
+            <th>{{c.student.studentId}}</th>
+            <th>{{c.student.name}}</th>
+            <th>{{c.tutorial}}</th>
+          </tr>
+          {%endfor%}
+        </table>
+        {%endfor%}
+      </div>
+    </div>
+    {%if course.tutDone is 1%}
+    <button onclick="history.back()" class="back">Return</button>
+    {%endif%}
+  </body>
+</html>
+{%endblock body%}
